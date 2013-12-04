@@ -1,0 +1,47 @@
+<?php
+/**
+ * Implements hook_menu().
+ */
+function jonrelate_menu() {
+
+  $items['search-homologene'] = array(
+    'title' => 'Ajax Search Homologene Request',
+    'page callback' => 'search_homologene_callback',
+    'access arguments' => array('access content'), //access callback defaults to user_access. Google hook_menu
+    'type' => MENU_CALLBACK,
+  );  
+
+  return $items;
+}
+
+function search_homologene_callback() {
+  $deletethis =32;
+  //When a page is viewed, a string is sent here with publisher uid followed by _, followed by all the nids of the nowads separated by -.
+  if(!empty($_GET['search-homologene-string'])){
+    $term = $_GET['search-homologene-string'];
+    //using DOM/XPath to grab the tweets straight from their page
+    $dom = new DOMDocument;
+    $html = file_get_contents("http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=homologene&term=$term");
+    @$dom->loadHTML($html);
+    $xpath = new DOMXPath($dom);
+    $ids = $xpath->query("//id");
+    foreach($ids as $id){
+      $id_string = $id->nodeValue;
+      $dom2 = new DOMDocument;
+      $html2 = file_get_contents("http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=homologene&id=$id_string");
+      @$dom2->loadHTML($html2);
+      $xpath2 = new DOMXPath($dom2);
+      $name = $xpath2->query("//item[@name='Title'][1]")->item(0)->nodeValue;
+      $results[] = array("id" => $id_string, "name" => $name);
+    }
+    echo json_encode($results);
+    
+    //$response = drupal_http_request("http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=homologene&term=$term");
+    //$response_array = json_decode($response, TRUE);
+    //echo $response;
+    //echo $_GET['search-homologene-string'];
+  }
+
+}
+
+

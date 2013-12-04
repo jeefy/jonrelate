@@ -1,0 +1,6 @@
+; $Id
+name = JonRelate
+description = Custom module for site that relates biological things to eachother
+core = 7.x
+files[] = jonrelate.module
+package = JonRelate

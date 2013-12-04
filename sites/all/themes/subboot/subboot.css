@@ -1,0 +1,18 @@
+h1{
+  font-size: 1.7em;
+}
+.page-user ul.nav-tabs{
+  display: none;
+}
+.breadcrumb{
+  display: none;
+}
+.help-block{
+  clear: both;
+}
+.field{
+  margin-bottom: 10px;
+}
+.view-connections .views-field-field-description{
+  display: none;
+}
