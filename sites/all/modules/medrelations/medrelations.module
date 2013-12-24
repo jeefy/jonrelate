@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the MedRelations feature.
+ */
+
+include_once 'medrelations.features.inc';
