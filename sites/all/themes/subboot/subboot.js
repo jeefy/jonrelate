@@ -2,7 +2,7 @@ jQuery(document).ready(function($) {
   $('.page-node-add-causal-relationship #edit-field-cause-und').change(function(){
     var baseurl = window.location.protocol + '//' + window.location.hostname;
     $.get(baseurl+'/search-homologene', 'search-homologene-string='+$(this).val(), function(data){
-      if(data != "null"){
+      if(data != "null" && data != ""){
         data_json = $.parseJSON(data);
         $('#edit-field-cause-homologene-und').hide();
         $('#edit-field-cause-homologene-und').before('<select id="cause-homologene-select" multiple="multiple"></select>');
@@ -46,7 +46,7 @@ jQuery(document).ready(function($) {
   $('.page-node-add-causal-relationship #edit-field-effect-und').change(function(){
     var baseurl = window.location.protocol + '//' + window.location.hostname;
     $.get(baseurl+'/search-homologene', 'search-homologene-string='+$(this).val(), function(data){
-      if(data != "null"){
+      if(data != "null" && data != ""){
         data_json = $.parseJSON(data);
         $('#edit-field-effect-homologene-und').hide();
         $('#edit-field-effect-homologene-und').before('<select id="effect-homologene-select" multiple="multiple"></select>');
