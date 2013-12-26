@@ -5,7 +5,10 @@ function subboot_preprocess_html(&$variables,$hook) {
   $path_cur = current_path();
   $request_path = request_path();
 
-  //if(preg_match('#^node/add/causal-relationship$#', $path_cur)){
-  //  drupal_add_js(path_to_theme() . '/js/add-relationship.js',array('type' => 'file', 'scope' => 'footer', 'weight' => 100, 'group' => JS_THEME));      
-  //}
+  if(preg_match('#^node/add/causal-relationship$#', $path_cur)){
+    drupal_add_js(path_to_theme() . '/js/add-relationship.js',array('type' => 'file', 'scope' => 'footer', 'weight' => 100, 'group' => JS_THEME));      
+  }
+  elseif(preg_match('#^connections$#', $path_cur)){
+    drupal_add_js(path_to_theme() . '/js/connections.js',array('type' => 'file', 'scope' => 'footer', 'weight' => 100, 'group' => JS_THEME));      
+  }
 }

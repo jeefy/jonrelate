@@ -28,9 +28,17 @@ function medrelations_views_default_views() {
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['exposed_form']['options']['submit_button'] = 'Search';
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['style_options']['grouping'] = array(
+    0 => array(
+      'field' => 'field_action',
+      'rendered' => 1,
+      'rendered_strip' => 0,
+    ),
+  );
   $handler->display->display_options['row_plugin'] = 'fields';
   /* Field: Content: Cause */
   $handler->display->display_options['fields']['field_cause']['id'] = 'field_cause';
@@ -38,8 +46,6 @@ function medrelations_views_default_views() {
   $handler->display->display_options['fields']['field_cause']['field'] = 'field_cause';
   $handler->display->display_options['fields']['field_cause']['label'] = '';
   $handler->display->display_options['fields']['field_cause']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_cause']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['field_cause']['alter']['text'] = '<a href="/connections?field_cause_tid=[field_cause]">[field_cause]</a>';
   $handler->display->display_options['fields']['field_cause']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_cause']['type'] = 'taxonomy_term_reference_plain';
   /* Field: Content: Action */
@@ -56,8 +62,6 @@ function medrelations_views_default_views() {
   $handler->display->display_options['fields']['field_effect']['field'] = 'field_effect';
   $handler->display->display_options['fields']['field_effect']['label'] = '';
   $handler->display->display_options['fields']['field_effect']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_effect']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['field_effect']['alter']['text'] = '<a href="/connections?field_effect_tid=[field_effect]">[field_effect]</a>';
   $handler->display->display_options['fields']['field_effect']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_effect']['type'] = 'taxonomy_term_reference_plain';
   /* Field: Content: Pubmed ID */
@@ -90,19 +94,21 @@ function medrelations_views_default_views() {
   $handler->display->display_options['fields']['field_figure_table_letter']['field'] = 'field_figure_table_letter';
   $handler->display->display_options['fields']['field_figure_table_letter']['label'] = '';
   $handler->display->display_options['fields']['field_figure_table_letter']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['field_figure_table_letter']['alter']['text'] = '[field_cause] [field_action] [field_effect] based on Pubmed ID#[field_pubmed_id] Fig.[field_figure_table_number][field_figure_table_letter]';
+  $handler->display->display_options['fields']['field_figure_table_letter']['alter']['text'] = '<div data-action-group="[field_action]">
+<a href="/connections?field_cause_tid=[field_cause]&field_effect_tid=[field_cause]" class="field-cause-class">[field_cause]</a>
+<span class="field-action">[field_action]</span>
+<a href="/connections?field_cause_tid=[field_effect]&field_effect_tid=[field_effect]" class="field-effect-class">[field_effect]</a>
+based on Pubmed ID#[field_pubmed_id] Fig.[field_figure_table_number][field_figure_table_letter]</div>';
   $handler->display->display_options['fields']['field_figure_table_letter']['element_label_colon'] = FALSE;
-  /* Field: Content: Description */
-  $handler->display->display_options['fields']['field_description']['id'] = 'field_description';
-  $handler->display->display_options['fields']['field_description']['table'] = 'field_data_field_description';
-  $handler->display->display_options['fields']['field_description']['field'] = 'field_description';
-  $handler->display->display_options['fields']['field_description']['label'] = '';
-  $handler->display->display_options['fields']['field_description']['element_label_colon'] = FALSE;
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
   $handler->display->display_options['sorts']['created']['field'] = 'created';
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
+  $handler->display->display_options['filter_groups']['groups'] = array(
+    1 => 'AND',
+    2 => 'OR',
+  );
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
@@ -117,14 +123,15 @@ function medrelations_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'causal_relationship' => 'causal_relationship',
   );
+  $handler->display->display_options['filters']['type']['group'] = 1;
   /* Filter criterion: Content: Cause (field_cause) */
   $handler->display->display_options['filters']['field_cause_tid']['id'] = 'field_cause_tid';
   $handler->display->display_options['filters']['field_cause_tid']['table'] = 'field_data_field_cause';
   $handler->display->display_options['filters']['field_cause_tid']['field'] = 'field_cause_tid';
   $handler->display->display_options['filters']['field_cause_tid']['value'] = '';
+  $handler->display->display_options['filters']['field_cause_tid']['group'] = 2;
   $handler->display->display_options['filters']['field_cause_tid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_cause_tid']['expose']['operator_id'] = 'field_cause_tid_op';
-  $handler->display->display_options['filters']['field_cause_tid']['expose']['label'] = 'Cause';
   $handler->display->display_options['filters']['field_cause_tid']['expose']['operator'] = 'field_cause_tid_op';
   $handler->display->display_options['filters']['field_cause_tid']['expose']['identifier'] = 'field_cause_tid';
   $handler->display->display_options['filters']['field_cause_tid']['expose']['remember_roles'] = array(
@@ -138,6 +145,7 @@ function medrelations_views_default_views() {
   $handler->display->display_options['filters']['field_effect_tid']['table'] = 'field_data_field_effect';
   $handler->display->display_options['filters']['field_effect_tid']['field'] = 'field_effect_tid';
   $handler->display->display_options['filters']['field_effect_tid']['value'] = '';
+  $handler->display->display_options['filters']['field_effect_tid']['group'] = 2;
   $handler->display->display_options['filters']['field_effect_tid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_effect_tid']['expose']['operator_id'] = 'field_effect_tid_op';
   $handler->display->display_options['filters']['field_effect_tid']['expose']['label'] = 'Effect';
@@ -150,8 +158,8 @@ function medrelations_views_default_views() {
   );
   $handler->display->display_options['filters']['field_effect_tid']['vocabulary'] = 'from_and_to_terms';
 
-  /* Display: Page */
-  $handler = $view->new_display('page', 'Page', 'page');
+  /* Display: Connections */
+  $handler = $view->new_display('page', 'Connections', 'page');
   $handler->display->display_options['path'] = 'connections';
   $export['connections'] = $view;
 
