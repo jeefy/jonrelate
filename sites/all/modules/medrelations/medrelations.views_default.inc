@@ -40,7 +40,7 @@ function medrelations_views_default_views() {
     ),
   );
   $handler->display->display_options['row_plugin'] = 'fields';
-  /* Field: Content: Cause */
+  /* Field: Content: Cause Name */
   $handler->display->display_options['fields']['field_cause']['id'] = 'field_cause';
   $handler->display->display_options['fields']['field_cause']['table'] = 'field_data_field_cause';
   $handler->display->display_options['fields']['field_cause']['field'] = 'field_cause';
@@ -56,7 +56,7 @@ function medrelations_views_default_views() {
   $handler->display->display_options['fields']['field_action']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_action']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_action']['type'] = 'taxonomy_term_reference_plain';
-  /* Field: Content: Effect */
+  /* Field: Content: Effect Name */
   $handler->display->display_options['fields']['field_effect']['id'] = 'field_effect';
   $handler->display->display_options['fields']['field_effect']['table'] = 'field_data_field_effect';
   $handler->display->display_options['fields']['field_effect']['field'] = 'field_effect';
@@ -124,7 +124,7 @@ based on Pubmed ID#[field_pubmed_id] Fig.[field_figure_table_number][field_figur
     'causal_relationship' => 'causal_relationship',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
-  /* Filter criterion: Content: Cause (field_cause) */
+  /* Filter criterion: Content: Cause Name (field_cause) */
   $handler->display->display_options['filters']['field_cause_tid']['id'] = 'field_cause_tid';
   $handler->display->display_options['filters']['field_cause_tid']['table'] = 'field_data_field_cause';
   $handler->display->display_options['filters']['field_cause_tid']['field'] = 'field_cause_tid';
@@ -140,7 +140,7 @@ based on Pubmed ID#[field_pubmed_id] Fig.[field_figure_table_number][field_figur
     3 => 0,
   );
   $handler->display->display_options['filters']['field_cause_tid']['vocabulary'] = 'from_and_to_terms';
-  /* Filter criterion: Content: Effect (field_effect) */
+  /* Filter criterion: Content: Effect Name (field_effect) */
   $handler->display->display_options['filters']['field_effect_tid']['id'] = 'field_effect_tid';
   $handler->display->display_options['filters']['field_effect_tid']['table'] = 'field_data_field_effect';
   $handler->display->display_options['filters']['field_effect_tid']['field'] = 'field_effect_tid';

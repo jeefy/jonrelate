@@ -1,0 +1,9 @@
+#edit-field-cause,
+#edit-field-effect{
+  float: left;
+}
+#edit-field-cause-homologene,
+#edit-field-effect-homologene{
+  overflow: hidden;
+  min-width: 200px;
+}

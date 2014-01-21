@@ -4,9 +4,9 @@
  */
 function jonrelate_menu() {
 
-  $items['search-homologene'] = array(
-    'title' => 'Ajax Search Homologene Request',
-    'page callback' => 'search_homologene_callback',
+  $items['search-ncbi'] = array(
+    'title' => 'Ajax Search NCBI Request',
+    'page callback' => 'search_ncbi_callback',
     'access arguments' => array('access content'), //access callback defaults to user_access. Google hook_menu
     'type' => MENU_CALLBACK,
   );  
@@ -14,25 +14,46 @@ function jonrelate_menu() {
   return $items;
 }
 
-function search_homologene_callback() {
+function search_ncbi_callback() {
   $deletethis =32;
   //When a page is viewed, a string is sent here with publisher uid followed by _, followed by all the nids of the nowads separated by -.
-  if(!empty($_GET['search-homologene-string'])){
-    $term = $_GET['search-homologene-string'];
+  if(!empty($_GET['search-ncbi-string'])){
+    $db = $_GET['database'];
+    $term = trim($_GET['search-ncbi-string']);
+    $term = preg_replace('/(\s)+/', ' ', $term);
+    $term = preg_replace('/ +/', '+', $term);
     //using DOM/XPath to grab the tweets straight from their page
     $dom = new DOMDocument;
-    $html = file_get_contents("http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=homologene&term=$term");
+    $html = file_get_contents("http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=$db&term=$term");
     @$dom->loadHTML($html);
     $xpath = new DOMXPath($dom);
     $ids = $xpath->query("//id");
     foreach($ids as $id){
       $id_string = $id->nodeValue;
       $dom2 = new DOMDocument;
-      $html2 = file_get_contents("http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=homologene&id=$id_string");
+      $html2 = file_get_contents("http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=$db&id=$id_string");
       @$dom2->loadHTML($html2);
       $xpath2 = new DOMXPath($dom2);
-      $name = $xpath2->query("//item[@name='Title'][1]")->item(0)->nodeValue;
-      $results[] = array("id" => $id_string, "name" => $name);
+      switch ($db) {
+        case 'homologene':
+            $symbol = $xpath2->query("//item[@name='Symbol'][1]")->item(0)->nodeValue;
+            $name = ': '.$xpath2->query("//item[@name='Title'][1]")->item(0)->nodeValue;
+            break;
+        case 'pccompound':
+            $symbol = $xpath2->query("//item[@name='SynonymList']/item[@name='string'][1]")->item(0)->nodeValue;
+            $name = '';//$xpath2->query("//item[@name='IUPACName'][1]")->item(0)->nodeValue;
+            break;
+        case 'protein':
+        case 'nuccore':
+            $symbol = $xpath2->query("//item[@name='Caption'][1]")->item(0)->nodeValue;
+            $name = ': '.$xpath2->query("//item[@name='Title'][1]")->item(0)->nodeValue;
+            break;
+        case 'gene':
+            $symbol = $xpath2->query("//item[@name='Name'][1]")->item(0)->nodeValue;
+            $name = ': '.$xpath2->query("//item[@name='Description'][1]")->item(0)->nodeValue;
+            break;
+      }
+      $results[] = array("id" => $symbol, "name" => $name);
     }
     echo json_encode($results);
     
@@ -41,7 +62,10 @@ function search_homologene_callback() {
     //echo $response;
     //echo $_GET['search-homologene-string'];
   }
-
+  /*if(empty($results)){
+    $results[] = array("id" =>'Sorry', "name" =>'');
+  }*/
+  
 }
 
 

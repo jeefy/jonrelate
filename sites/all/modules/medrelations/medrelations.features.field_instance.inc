@@ -22,7 +22,7 @@ function medrelations_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_plain',
-        'weight' => 2,
+        'weight' => 3,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -43,7 +43,7 @@ function medrelations_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 3,
+      'weight' => 4,
     ),
   );
 
@@ -52,7 +52,7 @@ function medrelations_field_default_field_instances() {
     'bundle' => 'causal_relationship',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'The specific name for the gene, transcript, protein, etc.',
     'display' => array(
       'default' => array(
         'label' => 'hidden',
@@ -70,48 +70,8 @@ function medrelations_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_cause',
-    'label' => 'Cause',
+    'label' => 'Cause Name',
     'required' => 1,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 0,
-      'module' => 'taxonomy',
-      'settings' => array(
-        'autocomplete_path' => 'taxonomy/autocomplete',
-        'size' => 60,
-      ),
-      'type' => 'taxonomy_autocomplete',
-      'weight' => 1,
-    ),
-  );
-
-  // Exported field_instance: 'node-causal_relationship-field_cause_homologene'
-  $field_instances['node-causal_relationship-field_cause_homologene'] = array(
-    'bundle' => 'causal_relationship',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'taxonomy',
-        'settings' => array(),
-        'type' => 'taxonomy_term_reference_plain',
-        'weight' => 1,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_cause_homologene',
-    'label' => 'Cause Homologene',
-    'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
     ),
@@ -127,6 +87,83 @@ function medrelations_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-causal_relationship-field_cause_category'
+  $field_instances['node-causal_relationship-field_cause_category'] = array(
+    'bundle' => 'causal_relationship',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_plain',
+        'weight' => 1,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_cause_category',
+    'label' => 'Cause category',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 1,
+    ),
+  );
+
+  // Exported field_instance: 'node-causal_relationship-field_cause_homologene'
+  $field_instances['node-causal_relationship-field_cause_homologene'] = array(
+    'bundle' => 'causal_relationship',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'For genes, transcripts, or proteins only. See <a href="http://en.wikipedia.org/wiki/HomoloGene" target="_blank">NCBI HomoloGene</a>',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_plain',
+        'weight' => 2,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_cause_homologene',
+    'label' => 'Cause HomoloGene',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'taxonomy',
+      'settings' => array(
+        'autocomplete_path' => 'taxonomy/autocomplete',
+        'size' => 60,
+      ),
+      'type' => 'taxonomy_autocomplete',
+      'weight' => 3,
+    ),
+  );
+
   // Exported field_instance: 'node-causal_relationship-field_description'
   $field_instances['node-causal_relationship-field_description'] = array(
     'bundle' => 'causal_relationship',
@@ -139,7 +176,7 @@ function medrelations_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_plain',
-        'weight' => 8,
+        'weight' => 10,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -163,7 +200,7 @@ function medrelations_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 9,
+      'weight' => 11,
     ),
   );
 
@@ -172,50 +209,10 @@ function medrelations_field_default_field_instances() {
     'bundle' => 'causal_relationship',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'The specific name for the gene, transcript, protein, etc.',
     'display' => array(
       'default' => array(
         'label' => 'hidden',
-        'module' => 'taxonomy',
-        'settings' => array(),
-        'type' => 'taxonomy_term_reference_plain',
-        'weight' => 3,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_effect',
-    'label' => 'Effect',
-    'required' => 1,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 0,
-      'module' => 'taxonomy',
-      'settings' => array(
-        'autocomplete_path' => 'taxonomy/autocomplete',
-        'size' => 60,
-      ),
-      'type' => 'taxonomy_autocomplete',
-      'weight' => 4,
-    ),
-  );
-
-  // Exported field_instance: 'node-causal_relationship-field_effect_homologene'
-  $field_instances['node-causal_relationship-field_effect_homologene'] = array(
-    'bundle' => 'causal_relationship',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_plain',
@@ -229,8 +226,85 @@ function medrelations_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
+    'field_name' => 'field_effect',
+    'label' => 'Effect Name',
+    'required' => 1,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'taxonomy',
+      'settings' => array(
+        'autocomplete_path' => 'taxonomy/autocomplete',
+        'size' => 60,
+      ),
+      'type' => 'taxonomy_autocomplete',
+      'weight' => 6,
+    ),
+  );
+
+  // Exported field_instance: 'node-causal_relationship-field_effect_category'
+  $field_instances['node-causal_relationship-field_effect_category'] = array(
+    'bundle' => 'causal_relationship',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_plain',
+        'weight' => 5,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_effect_category',
+    'label' => 'Effect Category',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 5,
+    ),
+  );
+
+  // Exported field_instance: 'node-causal_relationship-field_effect_homologene'
+  $field_instances['node-causal_relationship-field_effect_homologene'] = array(
+    'bundle' => 'causal_relationship',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'For genes, transcripts, or proteins only. See <a href="http://en.wikipedia.org/wiki/HomoloGene" target="_blank">NCBI HomoloGene</a>',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_plain',
+        'weight' => 6,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
     'field_name' => 'field_effect_homologene',
-    'label' => 'Effect Homologene',
+    'label' => 'Effect HomoloGene',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -243,7 +317,7 @@ function medrelations_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'taxonomy_autocomplete',
-      'weight' => 5,
+      'weight' => 7,
     ),
   );
 
@@ -259,7 +333,7 @@ function medrelations_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_plain',
-        'weight' => 7,
+        'weight' => 9,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -283,7 +357,7 @@ function medrelations_field_default_field_instances() {
         'size' => 2,
       ),
       'type' => 'text_textfield',
-      'weight' => 8,
+      'weight' => 10,
     ),
   );
 
@@ -299,7 +373,7 @@ function medrelations_field_default_field_instances() {
         'module' => 'number',
         'settings' => array(),
         'type' => 'number_unformatted',
-        'weight' => 6,
+        'weight' => 8,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -324,7 +398,7 @@ function medrelations_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 7,
+      'weight' => 9,
     ),
   );
 
@@ -342,7 +416,7 @@ function medrelations_field_default_field_instances() {
           'image_style' => '',
         ),
         'type' => 'image',
-        'weight' => 9,
+        'weight' => 11,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -374,7 +448,7 @@ function medrelations_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'image_image',
-      'weight' => 10,
+      'weight' => 12,
     ),
   );
 
@@ -390,7 +464,7 @@ function medrelations_field_default_field_instances() {
         'module' => 'number',
         'settings' => array(),
         'type' => 'number_unformatted',
-        'weight' => 5,
+        'weight' => 7,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -415,7 +489,7 @@ function medrelations_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 6,
+      'weight' => 8,
     ),
   );
 
@@ -491,16 +565,20 @@ function medrelations_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Action');
   t('Category');
-  t('Cause');
-  t('Cause Homologene');
+  t('Cause HomoloGene');
+  t('Cause Name');
+  t('Cause category');
   t('Description');
-  t('Effect');
-  t('Effect Homologene');
+  t('Effect Category');
+  t('Effect HomoloGene');
+  t('Effect Name');
   t('Figure/Table Letter');
   t('Figure/Table Number');
+  t('For genes, transcripts, or proteins only. See <a href="http://en.wikipedia.org/wiki/HomoloGene" target="_blank">NCBI HomoloGene</a>');
   t('Homologene');
   t('Original Figure');
   t('Pubmed ID');
+  t('The specific name for the gene, transcript, protein, etc.');
 
   return $field_instances;
 }
