@@ -22,7 +22,7 @@ jQuery(document).ready(function($) {
           case 'homologene': db_search="homologene";break;
           case 'gene': db_search="gene";break;
           case 'protein': db_search="protein";break;
-          case 'small molecule': db_search="pccompound";break;
+          case 'small molecule': db_search="pcsubstance";break;
           case 'transcript': db_search="nuccore";break;
         }
         $('#edit-field-'+causeOrEffect+'-und').after('<p class="'+causeOrEffect+'-searching">Searching NCBI '+db_search+' database...</p>');

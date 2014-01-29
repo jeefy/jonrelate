@@ -19,7 +19,7 @@ function medrelations_node_info() {
     'causal_relationship' => array(
       'name' => t('Causal Relationship'),
       'base' => 'node_content',
-      'description' => t('Add a causal relationship between two proteins, genes, small molecules, etc. that is shown either by a published figure or your own uploaded figure. Sweeeeeeet.'),
+      'description' => '',
       'has_title' => '1',
       'title_label' => t('Title'),
       'help' => '',

@@ -30,3 +30,10 @@ h1{
 #edit-submit-connections{
   margin-top: 0px;
 }
+.view-full-entry-link{
+  font-weight: bold;
+}
+.views-row{
+  margin-bottom: 10px;
+  list-style-type: square;
+}

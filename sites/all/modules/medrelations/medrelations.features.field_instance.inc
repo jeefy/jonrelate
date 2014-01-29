@@ -200,7 +200,7 @@ function medrelations_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 11,
+      'weight' => 12,
     ),
   );
 
@@ -321,6 +321,43 @@ function medrelations_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-causal_relationship-field_environment'
+  $field_instances['node-causal_relationship-field_environment'] = array(
+    'bundle' => 'causal_relationship',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 12,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_environment',
+    'label' => 'Environment',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 8,
+    ),
+  );
+
   // Exported field_instance: 'node-causal_relationship-field_figure_table_letter'
   $field_instances['node-causal_relationship-field_figure_table_letter'] = array(
     'bundle' => 'causal_relationship',
@@ -357,7 +394,7 @@ function medrelations_field_default_field_instances() {
         'size' => 2,
       ),
       'type' => 'text_textfield',
-      'weight' => 10,
+      'weight' => 11,
     ),
   );
 
@@ -398,7 +435,7 @@ function medrelations_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 9,
+      'weight' => 10,
     ),
   );
 
@@ -448,7 +485,7 @@ function medrelations_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'image_image',
-      'weight' => 12,
+      'weight' => 13,
     ),
   );
 
@@ -489,7 +526,7 @@ function medrelations_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 8,
+      'weight' => 9,
     ),
   );
 
@@ -572,6 +609,7 @@ function medrelations_field_default_field_instances() {
   t('Effect Category');
   t('Effect HomoloGene');
   t('Effect Name');
+  t('Environment');
   t('Figure/Table Letter');
   t('Figure/Table Number');
   t('For genes, transcripts, or proteins only. See <a href="http://en.wikipedia.org/wiki/HomoloGene" target="_blank">NCBI HomoloGene</a>');

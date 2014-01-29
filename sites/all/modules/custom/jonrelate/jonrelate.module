@@ -39,9 +39,9 @@ function search_ncbi_callback() {
             $symbol = $xpath2->query("//item[@name='Symbol'][1]")->item(0)->nodeValue;
             $name = ': '.$xpath2->query("//item[@name='Title'][1]")->item(0)->nodeValue;
             break;
-        case 'pccompound':
+        case 'pcsubstance':
             $symbol = $xpath2->query("//item[@name='SynonymList']/item[@name='string'][1]")->item(0)->nodeValue;
-            $name = '';//$xpath2->query("//item[@name='IUPACName'][1]")->item(0)->nodeValue;
+            $name = ' (CID = '.$xpath2->query("//item[@name='CompoundIDList']/item[@name='int'][1]")->item(0)->nodeValue.')';
             break;
         case 'protein':
         case 'nuccore':

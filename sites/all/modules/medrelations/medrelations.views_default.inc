@@ -40,6 +40,13 @@ function medrelations_views_default_views() {
     ),
   );
   $handler->display->display_options['row_plugin'] = 'fields';
+  /* Field: Content: Nid */
+  $handler->display->display_options['fields']['nid']['id'] = 'nid';
+  $handler->display->display_options['fields']['nid']['table'] = 'node';
+  $handler->display->display_options['fields']['nid']['field'] = 'nid';
+  $handler->display->display_options['fields']['nid']['label'] = '';
+  $handler->display->display_options['fields']['nid']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
   /* Field: Content: Cause Name */
   $handler->display->display_options['fields']['field_cause']['id'] = 'field_cause';
   $handler->display->display_options['fields']['field_cause']['table'] = 'field_data_field_cause';
@@ -98,7 +105,9 @@ function medrelations_views_default_views() {
 <a href="/connections?field_cause_tid=[field_cause]&field_effect_tid=[field_cause]" class="field-cause-class">[field_cause]</a>
 <span class="field-action">[field_action]</span>
 <a href="/connections?field_cause_tid=[field_effect]&field_effect_tid=[field_effect]" class="field-effect-class">[field_effect]</a>
-based on Pubmed ID#[field_pubmed_id] Fig.[field_figure_table_number][field_figure_table_letter]</div>';
+based on Pubmed ID#[field_pubmed_id] Fig.[field_figure_table_number][field_figure_table_letter].
+<a href="/node/[nid]">-View Full Entry-</a> 
+</div>';
   $handler->display->display_options['fields']['field_figure_table_letter']['element_label_colon'] = FALSE;
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
