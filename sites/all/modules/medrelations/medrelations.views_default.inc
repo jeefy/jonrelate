@@ -106,7 +106,7 @@ function medrelations_views_default_views() {
 <span class="field-action">[field_action]</span>
 <a href="/connections?field_cause_tid=[field_effect]&field_effect_tid=[field_effect]" class="field-effect-class">[field_effect]</a>
 based on Pubmed ID#[field_pubmed_id] Fig.[field_figure_table_number][field_figure_table_letter].
-<a href="/node/[nid]">-View Full Entry-</a> 
+<a href="/node/[nid]" class="view-full-entry-link">&lt;View&gt;</a> 
 </div>';
   $handler->display->display_options['fields']['field_figure_table_letter']['element_label_colon'] = FALSE;
   /* Sort criterion: Content: Post date */

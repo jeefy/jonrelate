@@ -176,7 +176,7 @@ function medrelations_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_plain',
-        'weight' => 10,
+        'weight' => 11,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -332,8 +332,8 @@ function medrelations_field_default_field_instances() {
         'label' => 'above',
         'module' => 'taxonomy',
         'settings' => array(),
-        'type' => 'taxonomy_term_reference_link',
-        'weight' => 12,
+        'type' => 'taxonomy_term_reference_plain',
+        'weight' => 7,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -370,7 +370,7 @@ function medrelations_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_plain',
-        'weight' => 9,
+        'weight' => 10,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -410,7 +410,7 @@ function medrelations_field_default_field_instances() {
         'module' => 'number',
         'settings' => array(),
         'type' => 'number_unformatted',
-        'weight' => 8,
+        'weight' => 9,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -453,7 +453,7 @@ function medrelations_field_default_field_instances() {
           'image_style' => '',
         ),
         'type' => 'image',
-        'weight' => 11,
+        'weight' => 12,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -501,7 +501,7 @@ function medrelations_field_default_field_instances() {
         'module' => 'number',
         'settings' => array(),
         'type' => 'number_unformatted',
-        'weight' => 7,
+        'weight' => 8,
       ),
       'teaser' => array(
         'label' => 'above',
