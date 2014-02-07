@@ -47,6 +47,14 @@ function medrelations_views_default_views() {
   $handler->display->display_options['fields']['nid']['label'] = '';
   $handler->display->display_options['fields']['nid']['exclude'] = TRUE;
   $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
+  /* Field: Content: Cause HomoloGene */
+  $handler->display->display_options['fields']['field_cause_homologene']['id'] = 'field_cause_homologene';
+  $handler->display->display_options['fields']['field_cause_homologene']['table'] = 'field_data_field_cause_homologene';
+  $handler->display->display_options['fields']['field_cause_homologene']['field'] = 'field_cause_homologene';
+  $handler->display->display_options['fields']['field_cause_homologene']['label'] = '';
+  $handler->display->display_options['fields']['field_cause_homologene']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_cause_homologene']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_cause_homologene']['type'] = 'taxonomy_term_reference_plain';
   /* Field: Content: Cause Name */
   $handler->display->display_options['fields']['field_cause']['id'] = 'field_cause';
   $handler->display->display_options['fields']['field_cause']['table'] = 'field_data_field_cause';
@@ -63,6 +71,14 @@ function medrelations_views_default_views() {
   $handler->display->display_options['fields']['field_action']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_action']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_action']['type'] = 'taxonomy_term_reference_plain';
+  /* Field: Content: Effect HomoloGene */
+  $handler->display->display_options['fields']['field_effect_homologene']['id'] = 'field_effect_homologene';
+  $handler->display->display_options['fields']['field_effect_homologene']['table'] = 'field_data_field_effect_homologene';
+  $handler->display->display_options['fields']['field_effect_homologene']['field'] = 'field_effect_homologene';
+  $handler->display->display_options['fields']['field_effect_homologene']['label'] = '';
+  $handler->display->display_options['fields']['field_effect_homologene']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_effect_homologene']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_effect_homologene']['type'] = 'taxonomy_term_reference_plain';
   /* Field: Content: Effect Name */
   $handler->display->display_options['fields']['field_effect']['id'] = 'field_effect';
   $handler->display->display_options['fields']['field_effect']['table'] = 'field_data_field_effect';
@@ -102,9 +118,11 @@ function medrelations_views_default_views() {
   $handler->display->display_options['fields']['field_figure_table_letter']['label'] = '';
   $handler->display->display_options['fields']['field_figure_table_letter']['alter']['alter_text'] = TRUE;
   $handler->display->display_options['fields']['field_figure_table_letter']['alter']['text'] = '<div data-action-group="[field_action]">
-<a href="/connections?field_cause_tid=[field_cause]&field_effect_tid=[field_cause]" class="field-cause-class">[field_cause]</a>
+[field_cause_homologene]
+(<a href="/connections?field_cause_tid=[field_cause]&field_effect_tid=[field_cause]" class="field-cause-class">[field_cause]</a>)
 <span class="field-action">[field_action]</span>
-<a href="/connections?field_cause_tid=[field_effect]&field_effect_tid=[field_effect]" class="field-effect-class">[field_effect]</a>
+[field_effect_homologene]
+(<a href="/connections?field_cause_tid=[field_effect]&field_effect_tid=[field_effect]" class="field-effect-class">[field_effect]</a>)
 based on Pubmed ID#[field_pubmed_id] Fig.[field_figure_table_number][field_figure_table_letter].
 <a href="/node/[nid]" class="view-full-entry-link">&lt;View&gt;</a> 
 </div>';
