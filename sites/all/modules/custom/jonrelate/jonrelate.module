@@ -4,6 +4,12 @@
  */
 function jonrelate_menu() {
 
+  $items['cytoscape'] = array(
+    'title' => 'Cytoscape',
+    'page callback' => 'cytoscape_page',
+    'access arguments' => array('access content'), //access callback defaults to user_access. Google hook_menu
+    'type' => MENU_CALLBACK,
+  );  
   $items['search-ncbi'] = array(
     'title' => 'Ajax Search NCBI Request',
     'page callback' => 'search_ncbi_callback',
@@ -13,7 +19,41 @@ function jonrelate_menu() {
 
   return $items;
 }
+function cytoscape_page(){
+  $output = <<<EOD
+<div id="cytoscapeweb">
+  Cytoscape Web will replace the contents of this div with your graph.
+</div>
+<script type="text/javascript">
+    window.onload=function() {
+        // id of Cytoscape Web container div
+        var div_id = "cytoscapeweb";
+        
+        // you could also use other formats (e.g. GraphML) or grab the network data via AJAX
+        var networ_json = {
+            data: {
+                nodes: [ { id: "1" }, { id: "2" } ],
+                edges: [ { id: "2to1", target: "1", source: "2" } ]
+            }
+        };
+        
+        // initialization options
+        var options = {
+            // where you have the Cytoscape Web SWF
+            swfPath: "/sites/all/themes/subboot/cytoscape/swf/CytoscapeWeb",
+            // where you have the Flash installer SWF
+            flashInstallerPath: "/sites/all/themes/subboot/cytoscape/swf/playerProductInstall"
+        };
+        
+        // init and draw
+        var vis = new org.cytoscapeweb.Visualization(div_id, options);
+        vis.draw({ network: networ_json });
+    };
+</script>
+EOD;
+  return $output;
 
+}
 function search_ncbi_callback() {
   $deletethis =32;
   //When a page is viewed, a string is sent here with publisher uid followed by _, followed by all the nids of the nowads separated by -.
