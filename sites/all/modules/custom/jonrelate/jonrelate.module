@@ -64,7 +64,7 @@ function search_ncbi_callback() {
     $term = preg_replace('/ +/', '+', $term);
     //using DOM/XPath to grab the tweets straight from their page
     $dom = new DOMDocument;
-    $html = file_get_contents("http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=$db&term=$term");
+    $html = file_get_contents("http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=$db&term=$term&relevanceorder=on");
     @$dom->loadHTML($html);
     $xpath = new DOMXPath($dom);
     $ids = $xpath->query("//id");
