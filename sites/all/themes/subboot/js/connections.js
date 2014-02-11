@@ -10,51 +10,45 @@ jQuery(document).ready(function($){
           dataSchema: {
               nodes: [ { name: "label", type: "string" }
                   ],
-              edges: [ { name: "label", type: "string" }
+              edges: [ { name: "label", type: "string" },
+                       { name: "directed", type: "boolean", defValue: true},
+                       //{ name: "targetArrowShape", type: "string", defValue: 'T'},
               ]
           },
           // NOTE the custom attributes on nodes and edges
           data: {
-              nodes: [ { id: "1", label: "1"},
-                       { id: "2", label: "2"}
-              ],
-              edges: [ { id: "2to1", target: "1", source: "2", label: "2 to 1"}
-              ]
+              nodes: [],
+              edges: []
           }
   };
+
+  //add nodes for each term, if they don't already exist.
+  function insertNode(term){
+    var term_exists = false;
+    for(var i=0; i<network_json.data.nodes.length; i++){
+      if(term == network_json.data.nodes[i].label){
+        term_exists = true;
+        break;
+      }
+    }
+    if(!term_exists){
+      network_json.data.nodes.push({id: term, label: term});
+    }
+  }
   //add nodes and edges for each connection
   $('.views-row').each(function(index, value){
-    //add nodes for each cause term, if they don't already exist.
     var cause_term = $(this).find('.field-cause-class').text();
-    var cause_exists = false;
-    for(var i=0; i<network_json.data.nodes.length; i++){
-      if(cause_term == network_json.data.nodes[i].label){
-        cause_exists = true;
-        break;
-      }
-    }
-    if(!cause_exists){
-      network_json.data.nodes.push({id: cause_term, label: cause_term});
-    }
-
-    //add nodes for each effect term, if they don't already exist.
     var effect_term = $(this).find('.field-effect-class').text();
-    var effect_exists = false;
-    for(var i=0; i<network_json.data.nodes.length; i++){
-      if(effect_term == network_json.data.nodes[i].label){
-        effect_exists = true;
-        break;
-      }
-    }
-    if(!effect_exists){
-      network_json.data.nodes.push({id: effect_term, label: effect_term});
-    }
+    if(cause_term != "" && effect_term != ""){
+      insertNode(cause_term);
+      insertNode(effect_term);
 
-    //add edge no matter what
-    var relationship = $(this).find('.field-action').text();
-    var edge_id = cause_term+'_'+relationship+'_'+effect_term+'_'+index;
-    var edge_label = cause_term+' '+relationship+' '+effect_term;
-    network_json.data.edges.push({id: edge_id, target: effect_term, source: cause_term, label: edge_label});
+      //add edge no matter what
+      var relationship = $(this).find('.field-action').text();
+      var edge_id = cause_term+'_'+relationship+'_'+effect_term+'_'+index;
+      var edge_label = cause_term+' '+relationship+' '+effect_term;
+      network_json.data.edges.push({id: edge_id, target: effect_term, source: cause_term, label: edge_label});            
+    }
   });
   
   // initialization options
