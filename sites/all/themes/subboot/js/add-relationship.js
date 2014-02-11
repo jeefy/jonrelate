@@ -39,7 +39,7 @@ jQuery(document).ready(function($) {
             $('#'+causeOrEffect+'-select').focus();      
           }
           else{
-            $('#edit-field-'+causeOrEffect+'-und').after('<p class="'+causeOrEffect+'-searching"><em>Sorry, no results found in NCBI HomoloGene database</em></p>');            
+            $('#edit-field-'+causeOrEffect+'-und').after('<p class="'+causeOrEffect+'-searching"><em>Sorry, no results found in NCBI '+db_search+' database</em></p>');            
           }
         });
 
@@ -61,7 +61,7 @@ jQuery(document).ready(function($) {
           $('#'+causeOrEffect+'-homologene-select').focus();      
         }
         else{
-          $('#edit-field-'+causeOrEffect+'-homologene-und').after('<p class="'+causeOrEffect+'-homologene-searching"><em>Sorry, no results found in NCBI HomoloGene database</em></p>');            
+          $('#edit-field-'+causeOrEffect+'-homologene-und').after('<p class="'+causeOrEffect+'-homologene-searching"><em>Sorry, no results found in NCBI homologene database</em></p>');            
         }
       });
       /*$.get('https://www.google.com/', null, function(text){

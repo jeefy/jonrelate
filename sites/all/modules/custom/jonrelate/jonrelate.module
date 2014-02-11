@@ -57,9 +57,9 @@ EOD;
 function search_ncbi_callback() {
   $deletethis =32;
   //When a page is viewed, a string is sent here with publisher uid followed by _, followed by all the nids of the nowads separated by -.
-  if(!empty($_GET['search-ncbi-string'])){
-    $db = $_GET['database'];
-    $term = trim($_GET['search-ncbi-string']);
+  if(!empty($_GET['search-ncbi-string']) && !empty($_GET['database'])){
+    $db = filter_xss($_GET['database'], '');
+    $term = filter_xss(trim($_GET['search-ncbi-string']), '');
     $term = preg_replace('/(\s)+/', ' ', $term);
     $term = preg_replace('/ +/', '+', $term);
     //using DOM/XPath to grab the tweets straight from their page
