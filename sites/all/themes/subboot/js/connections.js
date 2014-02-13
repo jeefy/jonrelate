@@ -1,18 +1,20 @@
 jQuery(document).ready(function($){
 
   //add cytoscape web functionality
-  $('.view-connections').after('<br><br><div id="working-model-head">Working model<hr></div><div id="cytoscapeweb"></div><div id="note"><p>Click nodes or edges.</p></div>');
+  $('.view-connections .view-filters').after('<br><br><div id="working-model-head">Working model<hr></div><div id="cytoscapeweb"></div><div id="note"></div>');
   var div_id = "cytoscapeweb";
   
   // create a network model object
   var network_json = {
           // you need to specify a data schema for custom attributes!
           dataSchema: {
-              nodes: [ { name: "label", type: "string" }
+              nodes: [ { name: "label", type: "string" },
+                       { name: "link", type: "string"},
                   ],
               edges: [ { name: "label", type: "string" },
-                       { name: "directed", type: "boolean", defValue: true},
-                       //{ name: "targetArrowShape", type: "string", defValue: 'T'},
+                       //{ name: "directed", type: "boolean", defValue: true},
+                       { name: "relType", type: "string"},
+                       { name: "link", type: "string"},
               ]
           },
           // NOTE the custom attributes on nodes and edges
@@ -21,9 +23,20 @@ jQuery(document).ready(function($){
               edges: []
           }
   };
+  //previous treatment of visual style, before using a passthrough mapper and arrowShape attribute in dataSchema above...
+  /*var visual_style = {
+    edges: {
+      targetArrowShape: {
+        discreteMapper:{
+          attrName: "id",
+          entries: [],
+        }        
+      }
+    }
+  };*/
 
   //add nodes for each term, if they don't already exist.
-  function insertNode(term){
+  function insertNode(term, link){
     var term_exists = false;
     for(var i=0; i<network_json.data.nodes.length; i++){
       if(term == network_json.data.nodes[i].label){
@@ -32,25 +45,55 @@ jQuery(document).ready(function($){
       }
     }
     if(!term_exists){
-      network_json.data.nodes.push({id: term, label: term});
+      network_json.data.nodes.push({id: term, label: term, link: link});
     }
   }
   //add nodes and edges for each connection
   $('.views-row').each(function(index, value){
     var cause_term = $(this).find('.field-cause-class').text();
+    var cause_link = $(this).find('.field-cause-class').attr('href');
     var effect_term = $(this).find('.field-effect-class').text();
+    var effect_link = $(this).find('.field-effect-class').attr('href');
     if(cause_term != "" && effect_term != ""){
-      insertNode(cause_term);
-      insertNode(effect_term);
+      insertNode(cause_term, cause_link);
+      insertNode(effect_term, effect_link);
 
       //add edge no matter what
       var relationship = $(this).find('.field-action').text();
       var edge_id = cause_term+'_'+relationship+'_'+effect_term+'_'+index;
       var edge_label = cause_term+' '+relationship+' '+effect_term;
-      network_json.data.edges.push({id: edge_id, target: effect_term, source: cause_term, label: edge_label});            
+      var edge_link = $(this).find('.view-full-entry-link').attr('href');
+      //var arrowShape = 'NONE';
+      /*if(relationship.toLowerCase() == "decreases"){
+        arrowShape = 'T';
+        //visual_style.edges.targetArrowShape.discreteMapper.entries.push({attrValue: edge_id, value: 'T'});                    
+      }
+      else if(relationship.toLowerCase() == "increases"){
+        arrowShape = 'ARROW';
+        //visual_style.edges.targetArrowShape.discreteMapper.entries.push({attrValue: edge_id, value: 'ARROW'});                    
+      }*/
+      //add the relationship to the network_json object
+      network_json.data.edges.push({id: edge_id, target: effect_term, source: cause_term, label: edge_label, directed: true, relType: relationship.toLowerCase(), link: edge_link});
     }
   });
-  
+var arrowShapeMapper = {
+        attrName: "relType",
+        entries: [ { attrValue: "increases", value: "ARROW" },
+                   { attrValue: "decreases", value: "T" }]
+};
+var edgeColorMapper = {
+        attrName: "relType",
+        entries: [ { attrValue: "increases", value: "#00274c" },
+                   { attrValue: "decreases", value: "#ffcb05" }]
+};
+  var visual_style = {
+    edges: {
+      targetArrowShape: {discreteMapper: arrowShapeMapper} ,
+      color: {discreteMapper: edgeColorMapper} ,
+    }
+  };
+
+
   // initialization options
   var options = {
       swfPath: "/sites/all/themes/subboot/cytoscape/swf/CytoscapeWeb",
@@ -58,7 +101,6 @@ jQuery(document).ready(function($){
   };
   
   var vis = new org.cytoscapeweb.Visualization(div_id, options);
-  
   // callback when Cytoscape Web has finished drawing
   vis.ready(function() {
   
@@ -71,15 +113,19 @@ jQuery(document).ready(function($){
       });
       
       function handle_click(event) {
-           var target = event.target;
-           
-           clear();
-           print("event.group = " + event.group);
-           for (var i in target.data) {
-              var variable_name = i;
-              var variable_value = target.data[i];
-              print( "event.target.data." + variable_name + " = " + variable_value );
-           }
+        var target = event.target;
+        if(target.data['link']){
+          window.location.href = target.data['link'];
+        }
+        else{
+          clear();
+          print("event.group = " + event.group);
+          for (var i in target.data) {
+            var variable_name = i;
+            var variable_value = target.data[i];
+            print( "event.target.data." + variable_name + " = " + variable_value );
+          }          
+        }
       }
       
       function clear() {
@@ -97,9 +143,18 @@ jQuery(document).ready(function($){
       network: network_json,
       // hide pan zoom
       //panZoomControlVisible: false 
+      visualStyle: visual_style,
   };
   
   vis.draw(draw_options);
+  
+  //below did not work to resize for some reason...
+  /*var scale;
+  vis.addListener("zoom", function(evt) {
+      scale = evt.value;
+  });
+  vis.zoomToFit();*/
+
 
 
 
