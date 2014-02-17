@@ -23,19 +23,8 @@ jQuery(document).ready(function($){
               edges: []
           }
   };
-  //previous treatment of visual style, before using a passthrough mapper and arrowShape attribute in dataSchema above...
-  /*var visual_style = {
-    edges: {
-      targetArrowShape: {
-        discreteMapper:{
-          attrName: "id",
-          entries: [],
-        }        
-      }
-    }
-  };*/
 
-  //add nodes for each term, if they don't already exist.
+  //add cytoscape nodes for each term, if they don't already exist.
   function insertNode(term, link){
     var term_exists = false;
     for(var i=0; i<network_json.data.nodes.length; i++){
@@ -63,15 +52,6 @@ jQuery(document).ready(function($){
       var edge_id = cause_term+'_'+relationship+'_'+effect_term+'_'+index;
       var edge_label = cause_term+' '+relationship+' '+effect_term;
       var edge_link = $(this).find('.view-full-entry-link').attr('href');
-      //var arrowShape = 'NONE';
-      /*if(relationship.toLowerCase() == "decreases"){
-        arrowShape = 'T';
-        //visual_style.edges.targetArrowShape.discreteMapper.entries.push({attrValue: edge_id, value: 'T'});                    
-      }
-      else if(relationship.toLowerCase() == "increases"){
-        arrowShape = 'ARROW';
-        //visual_style.edges.targetArrowShape.discreteMapper.entries.push({attrValue: edge_id, value: 'ARROW'});                    
-      }*/
       //add the relationship to the network_json object
       network_json.data.edges.push({id: edge_id, target: effect_term, source: cause_term, label: edge_label, directed: true, relType: relationship.toLowerCase(), link: edge_link});
     }
@@ -111,7 +91,7 @@ var edgeColorMapper = {
       .addListener("click", "edges", function(event) {
           handle_click(event);
       });
-      
+      //when clicking on a node or edge, send the user to the link referenced in the entity
       function handle_click(event) {
         var target = event.target;
         if(target.data['link']){

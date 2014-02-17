@@ -54,6 +54,8 @@ EOD;
   return $output;
 
 }
+//the following function takes a get request with a database and search term, sanitizes the data, and uses
+//it in a search request to NCBI. The results are then returned back as JSON.
 function search_ncbi_callback() {
   $deletethis =32;
   //When a page is viewed, a string is sent here with publisher uid followed by _, followed by all the nids of the nowads separated by -.
@@ -62,8 +64,9 @@ function search_ncbi_callback() {
     $term = filter_xss(trim($_GET['search-ncbi-string']), '');
     $term = preg_replace('/(\s)+/', ' ', $term);
     $term = preg_replace('/ +/', '+', $term);
-    //using DOM/XPath to grab the tweets straight from their page
+    //using DOM/XPath
     $dom = new DOMDocument;
+    //first make a request to esearch, which returns a list of ids.
     $html = file_get_contents("http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=$db&term=$term&relevanceorder=on");
     @$dom->loadHTML($html);
     $xpath = new DOMXPath($dom);
@@ -71,6 +74,7 @@ function search_ncbi_callback() {
     foreach($ids as $id){
       $id_string = $id->nodeValue;
       $dom2 = new DOMDocument;
+      //now make a request to esummary, which returns data for each search result
       $html2 = file_get_contents("http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=$db&id=$id_string");
       @$dom2->loadHTML($html2);
       $xpath2 = new DOMXPath($dom2);
