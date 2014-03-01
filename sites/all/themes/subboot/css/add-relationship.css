@@ -1,9 +1,53 @@
 #edit-field-cause,
-#edit-field-effect{
-  float: left;
-}
+#edit-field-effect,
+#edit-field-cause-category,
+#edit-field-effect-category,
 #edit-field-cause-homologene,
 #edit-field-effect-homologene{
-  overflow: hidden;
+  float: left;
+}
+#edit-field-action,
+#edit-field-environment{
+  clear: both;
+}
+#edit-field-cause-cid,
+#edit-field-effect-cid{
+  display: none;
+}
+
+#edit-field-cause,
+#edit-field-effect,
+#edit-field-cause-homologene,
+#edit-field-effect-homologene{
   min-width: 200px;
+  max-width: 450px;
+  width: 100%;
+  position: relative;
+  margin-left: 5px;
+}
+#edit-field-cause #autocomplete,
+#edit-field-effect #autocomplete,
+#edit-field-cause-homologene #autocomplete,
+#edit-field-effect-homologene #autocomplete{
+  display: none;
+}
+
+#cause-select,
+#effect-select,
+#cause-homologene-select,
+#effect-homologene-select{
+  height: 200px;
+  position: absolute;
+  top: 70px;
+  left: 0;
+  z-index: 20;
+}
+.cause-searching,
+.effect-searching,
+.cause-homologene-searching,
+.effect-homologene-searching{
+  position: absolute;
+  top: 70px;
+  left: 0;
+  z-index:20;
 }

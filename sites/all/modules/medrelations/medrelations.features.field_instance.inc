@@ -43,7 +43,7 @@ function medrelations_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 4,
+      'weight' => 5,
     ),
   );
 
@@ -90,7 +90,11 @@ function medrelations_field_default_field_instances() {
   // Exported field_instance: 'node-causal_relationship-field_cause_category'
   $field_instances['node-causal_relationship-field_cause_category'] = array(
     'bundle' => 'causal_relationship',
-    'default_value' => NULL,
+    'default_value' => array(
+      0 => array(
+        'tid' => 19,
+      ),
+    ),
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -121,6 +125,52 @@ function medrelations_field_default_field_instances() {
       'settings' => array(),
       'type' => 'options_select',
       'weight' => 1,
+    ),
+  );
+
+  // Exported field_instance: 'node-causal_relationship-field_cause_cid'
+  $field_instances['node-causal_relationship-field_cause_cid'] = array(
+    'bundle' => 'causal_relationship',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => ' ',
+        ),
+        'type' => 'number_integer',
+        'weight' => 14,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_cause_cid',
+    'label' => 'Cause CID',
+    'required' => 0,
+    'settings' => array(
+      'max' => '',
+      'min' => 1,
+      'prefix' => '',
+      'suffix' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 3,
     ),
   );
 
@@ -160,7 +210,7 @@ function medrelations_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'taxonomy_autocomplete',
-      'weight' => 3,
+      'weight' => 4,
     ),
   );
 
@@ -200,7 +250,7 @@ function medrelations_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 12,
+      'weight' => 14,
     ),
   );
 
@@ -240,14 +290,18 @@ function medrelations_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'taxonomy_autocomplete',
-      'weight' => 6,
+      'weight' => 7,
     ),
   );
 
   // Exported field_instance: 'node-causal_relationship-field_effect_category'
   $field_instances['node-causal_relationship-field_effect_category'] = array(
     'bundle' => 'causal_relationship',
-    'default_value' => NULL,
+    'default_value' => array(
+      0 => array(
+        'tid' => 19,
+      ),
+    ),
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -277,7 +331,53 @@ function medrelations_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 5,
+      'weight' => 6,
+    ),
+  );
+
+  // Exported field_instance: 'node-causal_relationship-field_effect_cid'
+  $field_instances['node-causal_relationship-field_effect_cid'] = array(
+    'bundle' => 'causal_relationship',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => ' ',
+        ),
+        'type' => 'number_integer',
+        'weight' => 15,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_effect_cid',
+    'label' => 'Effect CID',
+    'required' => 0,
+    'settings' => array(
+      'max' => '',
+      'min' => 0,
+      'prefix' => '',
+      'suffix' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 8,
     ),
   );
 
@@ -317,7 +417,7 @@ function medrelations_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'taxonomy_autocomplete',
-      'weight' => 7,
+      'weight' => 9,
     ),
   );
 
@@ -354,7 +454,7 @@ function medrelations_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 8,
+      'weight' => 10,
     ),
   );
 
@@ -394,7 +494,7 @@ function medrelations_field_default_field_instances() {
         'size' => 2,
       ),
       'type' => 'text_textfield',
-      'weight' => 11,
+      'weight' => 13,
     ),
   );
 
@@ -435,7 +535,47 @@ function medrelations_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 10,
+      'weight' => 12,
+    ),
+  );
+
+  // Exported field_instance: 'node-causal_relationship-field_group'
+  $field_instances['node-causal_relationship-field_group'] = array(
+    'bundle' => 'causal_relationship',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 13,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_group',
+    'label' => 'Group',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'taxonomy',
+      'settings' => array(
+        'autocomplete_path' => 'taxonomy/autocomplete',
+        'size' => 60,
+      ),
+      'type' => 'taxonomy_autocomplete',
+      'weight' => 16,
     ),
   );
 
@@ -485,7 +625,7 @@ function medrelations_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'image_image',
-      'weight' => 13,
+      'weight' => 15,
     ),
   );
 
@@ -526,7 +666,7 @@ function medrelations_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 9,
+      'weight' => 11,
     ),
   );
 
@@ -602,10 +742,12 @@ function medrelations_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Action');
   t('Category');
+  t('Cause CID');
   t('Cause HomoloGene');
   t('Cause Name');
   t('Cause category');
   t('Description');
+  t('Effect CID');
   t('Effect Category');
   t('Effect HomoloGene');
   t('Effect Name');
@@ -613,6 +755,7 @@ function medrelations_field_default_field_instances() {
   t('Figure/Table Letter');
   t('Figure/Table Number');
   t('For genes, transcripts, or proteins only. See <a href="http://en.wikipedia.org/wiki/HomoloGene" target="_blank">NCBI HomoloGene</a>');
+  t('Group');
   t('Homologene');
   t('Original Figure');
   t('Pubmed ID');
