@@ -10,7 +10,7 @@ function subboot_preprocess_html(&$variables,$hook) {
     drupal_add_js(path_to_theme() . '/js/add-relationship.js',array('type' => 'file', 'scope' => 'footer', 'weight' => 100, 'group' => JS_THEME));      
     drupal_add_css(path_to_theme() . '/css/add-relationship.css', array('weight' => CSS_THEME));
   }
-  elseif(preg_match('#^connections$#', $path_cur)){
+  elseif(preg_match('#^connections$#', $path_cur) || preg_match('#^mymows$#', $path_cur)){
     drupal_add_css(path_to_theme() . '/css/connections.css', array('weight' => CSS_THEME));
     drupal_add_js(path_to_theme() . '/cytoscape/js/min/json2.min.js',array('type' => 'file', 'scope' => 'footer', 'weight' => 100, 'group' => JS_THEME));      
     drupal_add_js(path_to_theme() . '/cytoscape/js/min/AC_OETags.min.js',array('type' => 'file', 'scope' => 'footer', 'weight' => 100, 'group' => JS_THEME));      

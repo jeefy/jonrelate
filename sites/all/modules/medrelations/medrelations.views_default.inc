@@ -188,6 +188,82 @@ based on Pubmed ID#[field_pubmed_id] Fig.[field_figure_table_number][field_figur
   /* Display: Connections */
   $handler = $view->new_display('page', 'Connections', 'page');
   $handler->display->display_options['path'] = 'connections';
+
+  /* Display: MyMOWs */
+  $handler = $view->new_display('page', 'MyMOWs', 'page_1');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'MyMOWs';
+  $handler->display->display_options['defaults']['access'] = FALSE;
+  $handler->display->display_options['access']['type'] = 'role';
+  $handler->display->display_options['access']['role'] = array(
+    3 => '3',
+    2 => '2',
+  );
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: Content: Author uid */
+  $handler->display->display_options['arguments']['uid']['id'] = 'uid';
+  $handler->display->display_options['arguments']['uid']['table'] = 'node';
+  $handler->display->display_options['arguments']['uid']['field'] = 'uid';
+  $handler->display->display_options['arguments']['uid']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['uid']['default_argument_type'] = 'current_user';
+  $handler->display->display_options['arguments']['uid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['uid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['uid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['filter_groups']['groups'] = array(
+    1 => 'AND',
+    2 => 'OR',
+  );
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'causal_relationship' => 'causal_relationship',
+  );
+  $handler->display->display_options['filters']['type']['group'] = 1;
+  /* Filter criterion: Content: Cause Name (field_cause) */
+  $handler->display->display_options['filters']['field_cause_tid']['id'] = 'field_cause_tid';
+  $handler->display->display_options['filters']['field_cause_tid']['table'] = 'field_data_field_cause';
+  $handler->display->display_options['filters']['field_cause_tid']['field'] = 'field_cause_tid';
+  $handler->display->display_options['filters']['field_cause_tid']['value'] = '';
+  $handler->display->display_options['filters']['field_cause_tid']['group'] = 2;
+  $handler->display->display_options['filters']['field_cause_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_cause_tid']['expose']['operator_id'] = 'field_cause_tid_op';
+  $handler->display->display_options['filters']['field_cause_tid']['expose']['operator'] = 'field_cause_tid_op';
+  $handler->display->display_options['filters']['field_cause_tid']['expose']['identifier'] = 'field_cause_tid';
+  $handler->display->display_options['filters']['field_cause_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+  );
+  $handler->display->display_options['filters']['field_cause_tid']['vocabulary'] = 'from_and_to_terms';
+  /* Filter criterion: Content: Effect Name (field_effect) */
+  $handler->display->display_options['filters']['field_effect_tid']['id'] = 'field_effect_tid';
+  $handler->display->display_options['filters']['field_effect_tid']['table'] = 'field_data_field_effect';
+  $handler->display->display_options['filters']['field_effect_tid']['field'] = 'field_effect_tid';
+  $handler->display->display_options['filters']['field_effect_tid']['value'] = '';
+  $handler->display->display_options['filters']['field_effect_tid']['group'] = 2;
+  $handler->display->display_options['filters']['field_effect_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_effect_tid']['expose']['operator_id'] = 'field_effect_tid_op';
+  $handler->display->display_options['filters']['field_effect_tid']['expose']['label'] = 'Effect';
+  $handler->display->display_options['filters']['field_effect_tid']['expose']['operator'] = 'field_effect_tid_op';
+  $handler->display->display_options['filters']['field_effect_tid']['expose']['identifier'] = 'field_effect_tid';
+  $handler->display->display_options['filters']['field_effect_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+  );
+  $handler->display->display_options['filters']['field_effect_tid']['vocabulary'] = 'from_and_to_terms';
+  $handler->display->display_options['path'] = 'mymows';
   $export['connections'] = $view;
 
   return $export;

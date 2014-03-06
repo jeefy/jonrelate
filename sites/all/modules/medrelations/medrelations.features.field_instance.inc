@@ -71,7 +71,7 @@ function medrelations_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_cause',
     'label' => 'Cause Name',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
     ),
@@ -278,7 +278,7 @@ function medrelations_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_effect',
     'label' => 'Effect Name',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
     ),

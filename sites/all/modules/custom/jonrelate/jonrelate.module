@@ -64,6 +64,10 @@ function search_ncbi_callback() {
     $term = filter_xss(trim($_GET['search-ncbi-string']), '');
     $term = preg_replace('/(\s)+/', ' ', $term);
     $term = preg_replace('/ +/', '+', $term);
+    //add mrna filter for nucleotide
+    if($db == 'nuccore'){
+      $term .= "+AND+mrna[filter]";
+    }
     //using DOM/XPath
     $dom = new DOMDocument;
     //first make a request to esearch, which returns a list of ids.

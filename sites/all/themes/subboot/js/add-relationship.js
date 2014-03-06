@@ -101,6 +101,41 @@ jQuery(document).ready(function($) {
       }
     }
   });
+
+  $('#edit-field-cause-homologene-und, #edit-field-effect-homologene-und').on('change',function(){
+    if($(this).val().length > 2){
+      if($(this).attr('id') == 'edit-field-cause-homologene-und'){
+        var causeOrEffect = 'cause';
+      }
+      else{
+        var causeOrEffect = 'effect';
+      }
+      var baseurl = window.location.protocol + '//' + window.location.hostname;
+      $('.'+causeOrEffect+'-homologene-searching').remove();
+
+      var separator = ': ';
+      $('#edit-field-'+causeOrEffect+'-homologene-und').after('<p class="'+causeOrEffect+'-homologene-searching">Searching NCBI homologene database...</p>');
+      $.get(baseurl+'/search-ncbi', 'search-ncbi-string='+$(this).val()+'&database=homologene', function(data){
+        $('.'+causeOrEffect+'-homologene-searching').remove();
+        $('#'+causeOrEffect+'-homologene-select').remove();
+        if(data != "null" && data != ""){
+          data_json = $.parseJSON(data);
+          //$('#edit-field-cause-homologene-und').hide();
+          $('#edit-field-'+causeOrEffect+'-homologene-und').after('<br><select id="'+causeOrEffect+'-homologene-select" multiple="multiple"></select>');
+          for(i=0; i<data_json.length; i++){
+            $('#'+causeOrEffect+'-homologene-select').append('<option value="'+data_json[i].id+'" data-name="'+data_json[i].name+'">'+data_json[i].id + separator+data_json[i].name+'</option>');
+          }
+          $('#'+causeOrEffect+'-homologene-select').append('<option>None of these</option>');            
+          $('#'+causeOrEffect+'-homologene-select').focus();      
+        }
+        else{
+          $('#edit-field-'+causeOrEffect+'-homologene-und').after('<p class="'+causeOrEffect+'-homologene-searching"><em>Sorry, no results found in NCBI homologene database</em></p>');            
+        }
+      });        
+    }
+  });
+
+
   $('body').on('change','#cause-select, #effect-select, #cause-homologene-select, #effect-homologene-select', function(){
     if($(this).attr('id') == 'cause-homologene-select' || $(this).attr('id') == 'cause-select'){
       var causeOrEffect = 'cause';

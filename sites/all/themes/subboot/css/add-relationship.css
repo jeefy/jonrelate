@@ -30,6 +30,9 @@
 #edit-field-cause-homologene #autocomplete,
 #edit-field-effect-homologene #autocomplete{
   display: none;
+  opacity: 0;
+  height: 0;
+  width: 0;
 }
 
 #cause-select,
