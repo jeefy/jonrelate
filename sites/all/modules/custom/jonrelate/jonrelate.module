@@ -92,13 +92,17 @@ function search_ncbi_callback() {
             $name = $xpath2->query("//item[@name='CompoundIDList']/item[@name='int'][1]")->item(0)->nodeValue;
             break;
         case 'protein':
+            $symbol = $xpath2->query("//item[@name='Caption'][1]")->item(0)->nodeValue;
+            $name = $xpath2->query("//item[@name='Title'][1]")->item(0)->nodeValue;
+            break;
         case 'nuccore':
             $symbol = $xpath2->query("//item[@name='Caption'][1]")->item(0)->nodeValue;
             $name = $xpath2->query("//item[@name='Title'][1]")->item(0)->nodeValue;
             break;
         case 'gene':
-            $symbol = $xpath2->query("//item[@name='Name'][1]")->item(0)->nodeValue;
-            $name = $xpath2->query("//item[@name='Description'][1]")->item(0)->nodeValue;
+            $symbol = $xpath2->query("//id[1]")->item(0)->nodeValue;
+            //$symbol = $xpath2->query("//item[@name='ChrAccVer'][1]")->item(0)->nodeValue;
+            $name = $xpath2->query("//item[@name='Name'][1]")->item(0)->nodeValue.' ['.$xpath2->query("//item[@name='Orgname'][1]")->item(0)->nodeValue.']';
             break;
         case 'mesh':
             $symbol = $xpath2->query("//item[@name='DS_MeshTerms']/item[@name='string'][1]")->item(0)->nodeValue;

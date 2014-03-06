@@ -539,46 +539,6 @@ function medrelations_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-causal_relationship-field_group'
-  $field_instances['node-causal_relationship-field_group'] = array(
-    'bundle' => 'causal_relationship',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'taxonomy',
-        'settings' => array(),
-        'type' => 'taxonomy_term_reference_link',
-        'weight' => 13,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_group',
-    'label' => 'Group',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 0,
-      'module' => 'taxonomy',
-      'settings' => array(
-        'autocomplete_path' => 'taxonomy/autocomplete',
-        'size' => 60,
-      ),
-      'type' => 'taxonomy_autocomplete',
-      'weight' => 16,
-    ),
-  );
-
   // Exported field_instance: 'node-causal_relationship-field_original_figure'
   $field_instances['node-causal_relationship-field_original_figure'] = array(
     'bundle' => 'causal_relationship',
@@ -755,7 +715,6 @@ function medrelations_field_default_field_instances() {
   t('Figure/Table Letter');
   t('Figure/Table Number');
   t('For genes, transcripts, or proteins only. See <a href="http://en.wikipedia.org/wiki/HomoloGene" target="_blank">NCBI HomoloGene</a>');
-  t('Group');
   t('Homologene');
   t('Original Figure');
   t('Pubmed ID');

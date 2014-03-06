@@ -63,6 +63,14 @@ function medrelations_views_default_views() {
   $handler->display->display_options['fields']['field_cause']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_cause']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_cause']['type'] = 'taxonomy_term_reference_plain';
+  /* Field: Content: Cause category */
+  $handler->display->display_options['fields']['field_cause_category']['id'] = 'field_cause_category';
+  $handler->display->display_options['fields']['field_cause_category']['table'] = 'field_data_field_cause_category';
+  $handler->display->display_options['fields']['field_cause_category']['field'] = 'field_cause_category';
+  $handler->display->display_options['fields']['field_cause_category']['label'] = '';
+  $handler->display->display_options['fields']['field_cause_category']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_cause_category']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_cause_category']['type'] = 'taxonomy_term_reference_plain';
   /* Field: Content: Action */
   $handler->display->display_options['fields']['field_action']['id'] = 'field_action';
   $handler->display->display_options['fields']['field_action']['table'] = 'field_data_field_action';
@@ -87,6 +95,14 @@ function medrelations_views_default_views() {
   $handler->display->display_options['fields']['field_effect']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_effect']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_effect']['type'] = 'taxonomy_term_reference_plain';
+  /* Field: Content: Effect Category */
+  $handler->display->display_options['fields']['field_effect_category']['id'] = 'field_effect_category';
+  $handler->display->display_options['fields']['field_effect_category']['table'] = 'field_data_field_effect_category';
+  $handler->display->display_options['fields']['field_effect_category']['field'] = 'field_effect_category';
+  $handler->display->display_options['fields']['field_effect_category']['label'] = '';
+  $handler->display->display_options['fields']['field_effect_category']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_effect_category']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_effect_category']['type'] = 'taxonomy_term_reference_plain';
   /* Field: Content: Pubmed ID */
   $handler->display->display_options['fields']['field_pubmed_id']['id'] = 'field_pubmed_id';
   $handler->display->display_options['fields']['field_pubmed_id']['table'] = 'field_data_field_pubmed_id';
@@ -119,14 +135,15 @@ function medrelations_views_default_views() {
   $handler->display->display_options['fields']['field_figure_table_letter']['alter']['alter_text'] = TRUE;
   $handler->display->display_options['fields']['field_figure_table_letter']['alter']['text'] = '<div data-action-group="[field_action]">
 [field_cause_homologene]
-(<a href="/connections?field_cause_tid=[field_cause]&field_effect_tid=[field_cause]" class="field-cause-class">[field_cause]</a>)
+([field_cause_category] <a href="/connections?field_cause_tid=[field_cause]&field_effect_tid=[field_cause]" class="field-cause-class">[field_cause]</a>)
 <span class="field-action">[field_action]</span>
 [field_effect_homologene]
-(<a href="/connections?field_cause_tid=[field_effect]&field_effect_tid=[field_effect]" class="field-effect-class">[field_effect]</a>)
+([field_effect_category] <a href="/connections?field_cause_tid=[field_effect]&field_effect_tid=[field_effect]" class="field-effect-class">[field_effect]</a>)
 based on Pubmed ID#[field_pubmed_id] Fig.[field_figure_table_number][field_figure_table_letter].
 <a href="/node/[nid]" class="view-full-entry-link">&lt;View&gt;</a> 
 </div>';
   $handler->display->display_options['fields']['field_figure_table_letter']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_figure_table_letter']['hide_alter_empty'] = FALSE;
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
