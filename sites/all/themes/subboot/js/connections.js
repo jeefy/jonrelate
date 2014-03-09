@@ -1,7 +1,15 @@
 jQuery(document).ready(function($){
+  $('#connections-header-body').hide();
+  $('#connections-header-title').css('cursor', 'pointer');
+  $('#connections-header-title').toggle(function(){
+    $('#connections-header-body').slideDown();
+  }, function(){
+    $('#connections-header-body').slideUp();
+  });
 
   //add cytoscape web functionality
-  $('.view-connections .view-filters').after('<br><br><div id="working-model-head">Working model<hr></div><div id="cytoscapeweb"></div><div id="note"></div>');
+  $('.view-connections .view-filters').after('<div id="cytoscapeweb"></div><div id="note"></div>');
+  //$('.view-connections .view-filters').after('<br><br><div id="working-model-head">Working model<hr></div>');
   var div_id = "cytoscapeweb";
   
   // create a network model object
@@ -10,6 +18,7 @@ jQuery(document).ready(function($){
           dataSchema: {
               nodes: [ { name: "label", type: "string" },
                        { name: "link", type: "string"},
+                       { name: "type", type: "string"},
                   ],
               edges: [ { name: "label", type: "string" },
                        //{ name: "directed", type: "boolean", defValue: true},
@@ -25,7 +34,7 @@ jQuery(document).ready(function($){
   };
 
   //add cytoscape nodes for each term, if they don't already exist.
-  function insertNode(term, link){
+  function insertNode(term, link, type){
     var term_exists = false;
     for(var i=0; i<network_json.data.nodes.length; i++){
       if(term == network_json.data.nodes[i].label){
@@ -34,7 +43,7 @@ jQuery(document).ready(function($){
       }
     }
     if(!term_exists){
-      network_json.data.nodes.push({id: term, label: term, link: link});
+      network_json.data.nodes.push({id: term, label: term, link: link, type: type});
     }
   }
   //add nodes and edges for each connection
@@ -44,8 +53,8 @@ jQuery(document).ready(function($){
     var effect_term = $(this).find('.field-effect-class').text();
     var effect_link = $(this).find('.field-effect-class').attr('href');
     if(cause_term != "" && effect_term != ""){
-      insertNode(cause_term, cause_link);
-      insertNode(effect_term, effect_link);
+      insertNode(cause_term, cause_link, "gene");
+      insertNode(effect_term, effect_link, "gene");
 
       //add edge no matter what
       var relationship = $(this).find('.field-action').text();
@@ -57,19 +66,29 @@ jQuery(document).ready(function($){
     }
   });
 var arrowShapeMapper = {
-        attrName: "relType",
-        entries: [ { attrValue: "increases", value: "ARROW" },
-                   { attrValue: "decreases", value: "T" }]
+  attrName: "relType",
+  entries: [ { attrValue: "increases", value: "ARROW" },
+             { attrValue: "decreases", value: "T" }]
 };
 var edgeColorMapper = {
-        attrName: "relType",
-        entries: [ { attrValue: "increases", value: "#00274c" },
-                   { attrValue: "decreases", value: "#ffcb05" }]
+  attrName: "relType",
+  entries: [ { attrValue: "increases", value: "#00274c" },
+             { attrValue: "decreases", value: "#ffcb05" }]
 };
+var nodeShapeMapper = {
+  attrName: "type",
+  entries: [{attrValue: "gene", value: "ELLIPSE"}]
+}
   var visual_style = {
+    nodes: {
+      opacity: 0.5,
+      shape: {discreteMapper: nodeShapeMapper} ,
+    },
     edges: {
       targetArrowShape: {discreteMapper: arrowShapeMapper} ,
       color: {discreteMapper: edgeColorMapper} ,
+      width: 2,
+      opacity: 0.5,
     }
   };
 

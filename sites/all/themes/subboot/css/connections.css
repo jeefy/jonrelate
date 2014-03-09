@@ -6,3 +6,10 @@
   font-size: 2em;
   font-weight: bold;
 }
+#connections-header-title{
+  font-weight: bold;
+  color: blue;
+}
+#connections-header-body{
+  margin-bottom: 20px;
+}
