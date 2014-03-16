@@ -13,3 +13,24 @@
 #connections-header-body{
   margin-bottom: 20px;
 }
+.view-connections .views-field-field-description{
+  display: none;
+}
+/*.view-connections .view-content{
+  width: 400px;
+  overflow: hidden;
+}
+.connections-from-addition{
+  width: 400px;
+  float: left;
+}*/
+#edit-submit-connections{
+  margin-top: 0px;
+}
+.view-full-entry-link{
+  font-weight: bold;
+}
+.views-row{
+  margin-bottom: 10px;
+  list-style-type: square;
+}

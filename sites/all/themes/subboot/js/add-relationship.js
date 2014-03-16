@@ -41,18 +41,17 @@ jQuery(document).ready(function($) {
       //search first for the specific thing
       var db_selected = $('#edit-field-'+causeOrEffect+'-category-und option:selected').text().toLowerCase();
       var db_search = 'gene';
-      var separator = ': ';
       if(db_selected == 'gene' ||
          db_selected == 'protein' ||
          db_selected == 'small molecule' ||
          db_selected == 'transcript' ||
          db_selected == 'process/disease'){
         switch (db_selected){
-          case 'gene': db_search="gene";break;
+          case 'gene': db_search="gene"; break;
           case 'protein': db_search="protein";break;
-          case 'small molecule': db_search="pcsubstance"; separator=", CID = "; break;
+          case 'small molecule': db_search="pcsubstance"; break;
           case 'transcript': db_search="nuccore";break;
-          case 'process/disease': db_search="mesh";separator=""; break;
+          case 'process/disease': db_search="mesh";break;
         }
         //make ajax request after alerting user that we are searching
         $('#edit-field-'+causeOrEffect+'-und').after('<p class="'+causeOrEffect+'-searching">Searching NCBI '+db_search+' database...</p>');
@@ -63,7 +62,7 @@ jQuery(document).ready(function($) {
             data_json = $.parseJSON(data);
             $('#edit-field-'+causeOrEffect+'-und').after('<br><select id="'+causeOrEffect+'-select" multiple="multiple"></select>');
             for(i=0; i<data_json.length; i++){
-              $('#'+causeOrEffect+'-select').append('<option value="'+data_json[i].id+'" data-name="'+data_json[i].name+'">'+data_json[i].id + separator + data_json[i].name+'</option>');
+              $('#'+causeOrEffect+'-select').append('<option value="'+data_json[i].value+'" data-id="'+data_json[i].id+'">'+data_json[i].select_text+'</option>');
             }
             $('#'+causeOrEffect+'-select').append('<option>None of these</option>');            
             $('#'+causeOrEffect+'-select').focus();      
@@ -89,7 +88,7 @@ jQuery(document).ready(function($) {
             //$('#edit-field-cause-homologene-und').hide();
             $('#edit-field-'+causeOrEffect+'-homologene-und').after('<br><select id="'+causeOrEffect+'-homologene-select" multiple="multiple"></select>');
             for(i=0; i<data_json.length; i++){
-              $('#'+causeOrEffect+'-homologene-select').append('<option value="'+data_json[i].id+'" data-name="'+data_json[i].name+'">'+data_json[i].id + separator+data_json[i].name+'</option>');
+              $('#'+causeOrEffect+'-homologene-select').append('<option value="'+data_json[i].value+'" data-id="'+data_json[i].id+'">'+data_json[i].select_text+'</option>');
             }
             $('#'+causeOrEffect+'-homologene-select').append('<option>None of these</option>');            
             $('#'+causeOrEffect+'-homologene-select').focus();      
@@ -113,7 +112,6 @@ jQuery(document).ready(function($) {
       var baseurl = window.location.protocol + '//' + window.location.hostname;
       $('.'+causeOrEffect+'-homologene-searching').remove();
 
-      var separator = ': ';
       $('#edit-field-'+causeOrEffect+'-homologene-und').after('<p class="'+causeOrEffect+'-homologene-searching">Searching NCBI homologene database...</p>');
       $.get(baseurl+'/search-ncbi', 'search-ncbi-string='+$(this).val()+'&database=homologene', function(data){
         $('.'+causeOrEffect+'-homologene-searching').remove();
@@ -123,7 +121,7 @@ jQuery(document).ready(function($) {
           //$('#edit-field-cause-homologene-und').hide();
           $('#edit-field-'+causeOrEffect+'-homologene-und').after('<br><select id="'+causeOrEffect+'-homologene-select" multiple="multiple"></select>');
           for(i=0; i<data_json.length; i++){
-            $('#'+causeOrEffect+'-homologene-select').append('<option value="'+data_json[i].id+'" data-name="'+data_json[i].name+'">'+data_json[i].id + separator+data_json[i].name+'</option>');
+            $('#'+causeOrEffect+'-homologene-select').append('<option value="'+data_json[i].value+'" data-id="'+data_json[i].id+'">'+data_json[i].select_text+'</option>');
           }
           $('#'+causeOrEffect+'-homologene-select').append('<option>None of these</option>');            
           $('#'+causeOrEffect+'-homologene-select').focus();      
@@ -153,7 +151,7 @@ jQuery(document).ready(function($) {
       $('#edit-field-'+causeOrEffect+homolOrNot+'-und').val($(this).val());
       var db_selected = $('#edit-field-'+causeOrEffect+'-category-und option:selected').text().toLowerCase();
       if(homolOrNot == '' && db_selected == 'small molecule'){
-        var cid = $(this).find('option:selected').attr('data-name');
+        var cid = $(this).find('option:selected').attr('data-id');
         $('#edit-field-'+causeOrEffect+'-cid-und-0-value').val(cid);
       }
     }

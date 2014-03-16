@@ -82,34 +82,49 @@ function search_ncbi_callback() {
       $html2 = file_get_contents("http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=$db&id=$id_string");
       @$dom2->loadHTML($html2);
       $xpath2 = new DOMXPath($dom2);
+      if($db == 'pcsubstance'){
+        $cid = $xpath2->query("//item[@name='CompoundIDList']/item[@name='int'][1]")->item(0)->nodeValue;
+        $dom3 = new DOMDocument;
+        $html3 = file_get_contents("http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pccompound&id=$cid");
+        @$dom3->loadHTML($html3);
+        $xpath3 = new DOMXPath($dom3);
+      }
+      $id = '';
       switch ($db) {
         case 'homologene':
-            $symbol = $xpath2->query("//item[@name='Symbol'][1]")->item(0)->nodeValue;
-            $name = $xpath2->query("//item[@name='Title'][1]")->item(0)->nodeValue;
+            $value = $xpath2->query("//item[@name='Symbol'][1]")->item(0)->nodeValue;
+            $title = $xpath2->query("//item[@name='Title'][1]")->item(0)->nodeValue;
+            $select_text = $value.': '.$title;
             break;
         case 'pcsubstance':
-            $symbol = $xpath2->query("//item[@name='SynonymList']/item[@name='string'][1]")->item(0)->nodeValue;
-            $name = $xpath2->query("//item[@name='CompoundIDList']/item[@name='int'][1]")->item(0)->nodeValue;
+            $value = $xpath3->query("//item[@name='SynonymList']/item[@name='string'][1]")->item(0)->nodeValue;
+            $synonym = $xpath2->query("//item[@name='SynonymList']/item[@name='string'][1]")->item(0)->nodeValue;
+            $id = $xpath2->query("//item[@name='CompoundIDList']/item[@name='int'][1]")->item(0)->nodeValue;
+            $select_text = $value.', CID# '.$id.', '.$synonym;
             break;
         case 'protein':
-            $symbol = $xpath2->query("//item[@name='Caption'][1]")->item(0)->nodeValue;
-            $name = $xpath2->query("//item[@name='Title'][1]")->item(0)->nodeValue;
+            $value = $xpath2->query("//item[@name='Caption'][1]")->item(0)->nodeValue;
+            $title = $xpath2->query("//item[@name='Title'][1]")->item(0)->nodeValue;
+            $select_text = $value.': '.$title;
             break;
         case 'nuccore':
-            $symbol = $xpath2->query("//item[@name='Caption'][1]")->item(0)->nodeValue;
-            $name = $xpath2->query("//item[@name='Title'][1]")->item(0)->nodeValue;
+            $value = $xpath2->query("//item[@name='Caption'][1]")->item(0)->nodeValue;
+            $title = $xpath2->query("//item[@name='Title'][1]")->item(0)->nodeValue;
+            $select_text = $value.': '.$title;
             break;
         case 'gene':
-            $symbol = $xpath2->query("//id[1]")->item(0)->nodeValue;
-            //$symbol = $xpath2->query("//item[@name='ChrAccVer'][1]")->item(0)->nodeValue;
-            $name = $xpath2->query("//item[@name='Name'][1]")->item(0)->nodeValue.' ['.$xpath2->query("//item[@name='Orgname'][1]")->item(0)->nodeValue.']';
+            $name = $xpath2->query("//item[@name='Name'][1]")->item(0)->nodeValue;
+            $orgname = $xpath2->query("//item[@name='Orgname'][1]")->item(0)->nodeValue;
+            $value = $name.' ['.$orgname.']';
+            $id = $xpath2->query("//id[1]")->item(0)->nodeValue;
+            $select_text = $name.' ['.$orgname.']'.' GI# '.$id;
             break;
         case 'mesh':
-            $symbol = $xpath2->query("//item[@name='DS_MeshTerms']/item[@name='string'][1]")->item(0)->nodeValue;
-            $name = '';
+            $value = $xpath2->query("//item[@name='DS_MeshTerms']/item[@name='string'][1]")->item(0)->nodeValue;
+            $select_text = $value;
             break;
       }
-      $results[] = array("id" => $symbol, "name" => $name);
+      $results[] = array("value" => $value, "select_text" => $select_text, "id" => $id);
     }
     echo json_encode($results);
     

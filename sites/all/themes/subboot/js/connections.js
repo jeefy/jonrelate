@@ -48,9 +48,9 @@ jQuery(document).ready(function($){
   }
   //add nodes and edges for each connection
   $('.views-row').each(function(index, value){
-    var cause_term = $(this).find('.field-cause-class').text();
+    var cause_term = ($(this).find('.field-cause-homologene').text()) ? $(this).find('.field-cause-homologene').text() : $(this).find('.field-cause-class').text();
     var cause_link = $(this).find('.field-cause-class').attr('href');
-    var effect_term = $(this).find('.field-effect-class').text();
+    var effect_term = ($(this).find('.field-effect-homologene').text()) ? $(this).find('.field-effect-homologene').text() : $(this).find('.field-effect-class').text();
     var effect_link = $(this).find('.field-effect-class').attr('href');
     if(cause_term != "" && effect_term != ""){
       insertNode(cause_term, cause_link, "gene");
@@ -65,20 +65,21 @@ jQuery(document).ready(function($){
       network_json.data.edges.push({id: edge_id, target: effect_term, source: cause_term, label: edge_label, directed: true, relType: relationship.toLowerCase(), link: edge_link});
     }
   });
-var arrowShapeMapper = {
-  attrName: "relType",
-  entries: [ { attrValue: "increases", value: "ARROW" },
-             { attrValue: "decreases", value: "T" }]
-};
-var edgeColorMapper = {
-  attrName: "relType",
-  entries: [ { attrValue: "increases", value: "#00274c" },
-             { attrValue: "decreases", value: "#ffcb05" }]
-};
-var nodeShapeMapper = {
-  attrName: "type",
-  entries: [{attrValue: "gene", value: "ELLIPSE"}]
-}
+  var arrowShapeMapper = {
+    attrName: "relType",
+    entries: [ { attrValue: "increases", value: "ARROW" },
+               { attrValue: "decreases", value: "T" }]
+  };
+  var edgeColorMapper = {
+    attrName: "relType",
+    entries: [ { attrValue: "increases", value: "#00274c" },
+               { attrValue: "decreases", value: "#750300" }]
+               //{ attrValue: "decreases", value: "#ffcb05" }]
+  };
+  var nodeShapeMapper = {
+    attrName: "type",
+    entries: [{attrValue: "gene", value: "ELLIPSE"}]
+  }
   var visual_style = {
     nodes: {
       opacity: 0.5,
@@ -171,7 +172,7 @@ var nodeShapeMapper = {
   }
 
   //group the results based on if they cause or are caused by the search term
-  $('.view-connections .view-content').before('<div class="connections-from-addition"></div>');
+  /*$('.view-connections .view-content').before('<div class="connections-from-addition"></div>');
   var field_effect_tid = getUrlVars()["field_effect_tid"];
   if(field_effect_tid != null){
     $('.views-row').each(function(index){
@@ -201,7 +202,7 @@ var nodeShapeMapper = {
         }        
       }
     });
-  }
+  }*/
 
   //hide effect search box and autofill with cause box when submitting search form
   $('#edit-field-effect-tid-wrapper').hide();

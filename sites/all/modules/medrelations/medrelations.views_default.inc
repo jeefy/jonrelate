@@ -48,7 +48,7 @@ function medrelations_views_default_views() {
   $handler->display->display_options['header']['area']['content'] = '<div id="connections-header-title">What am I looking at?</div>
 <div id="connections-header-body">
 This is an interactive map of the relationships between biological entities that have been demonstrated by experiments and shown in published figures. Clicking on a biological entity will show all relationships with that entity. Clicking on a line will show the published figure that is referenced. A list of all the relationships is shown below the interactive map.<br>
-Use the search box below to search by name for a particular biological entity, and please add to this body of knowledge by clicking <em>Add Relationship</em> above, and either publishing your figure directly to this site, or referencing the relationships demonstrated by an already published figure. Thank you!
+Use the search box below to search by name for a particular biological entity, and please add to this body of knowledge by clicking <em>Add Relationship</em> above (only for logged in users), and either publishing your figure directly to this site, or referencing the relationships demonstrated by an already published figure. Thank you!
 </div>';
   $handler->display->display_options['header']['area']['format'] = 'full_html';
   /* No results behavior: Global: Text area */
@@ -88,6 +88,8 @@ Use the search box below to search by name for a particular biological entity, a
   $handler->display->display_options['fields']['field_cause_category']['field'] = 'field_cause_category';
   $handler->display->display_options['fields']['field_cause_category']['label'] = '';
   $handler->display->display_options['fields']['field_cause_category']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_cause_category']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_cause_category']['alter']['text'] = '[field_cause_category] ';
   $handler->display->display_options['fields']['field_cause_category']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_cause_category']['type'] = 'taxonomy_term_reference_plain';
   /* Field: Content: Action */
@@ -120,6 +122,8 @@ Use the search box below to search by name for a particular biological entity, a
   $handler->display->display_options['fields']['field_effect_category']['field'] = 'field_effect_category';
   $handler->display->display_options['fields']['field_effect_category']['label'] = '';
   $handler->display->display_options['fields']['field_effect_category']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_effect_category']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_effect_category']['alter']['text'] = '[field_effect_category] ';
   $handler->display->display_options['fields']['field_effect_category']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_effect_category']['type'] = 'taxonomy_term_reference_plain';
   /* Field: Content: Pubmed ID */
@@ -153,11 +157,11 @@ Use the search box below to search by name for a particular biological entity, a
   $handler->display->display_options['fields']['field_figure_table_letter']['label'] = '';
   $handler->display->display_options['fields']['field_figure_table_letter']['alter']['alter_text'] = TRUE;
   $handler->display->display_options['fields']['field_figure_table_letter']['alter']['text'] = '<div data-action-group="[field_action]">
-[field_cause_homologene]
-([field_cause_category] <a href="/connections?field_cause_tid=[field_cause]&field_effect_tid=[field_cause]" class="field-cause-class">[field_cause]</a>)
+<span class="field-cause-homologene">[field_cause_homologene]</span>
+([field_cause_category]<a href="/connections?field_cause_tid=[field_cause]&field_effect_tid=[field_cause]" class="field-cause-class">[field_cause]</a>)
 <span class="field-action">[field_action]</span>
-[field_effect_homologene]
-([field_effect_category] <a href="/connections?field_cause_tid=[field_effect]&field_effect_tid=[field_effect]" class="field-effect-class">[field_effect]</a>)
+<span class="field-effect-homologene">[field_effect_homologene]</span>
+([field_effect_category]<a href="/connections?field_cause_tid=[field_effect]&field_effect_tid=[field_effect]" class="field-effect-class">[field_effect]</a>)
 based on Pubmed ID#[field_pubmed_id] Fig.[field_figure_table_number][field_figure_table_letter].
 <a href="/node/[nid]" class="view-full-entry-link">&lt;View&gt;</a> 
 </div>';
