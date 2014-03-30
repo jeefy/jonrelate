@@ -205,10 +205,14 @@ jQuery(document).ready(function($){
   }*/
 
   //hide effect search box and autofill with cause box when submitting search form
-  $('#edit-field-effect-tid-wrapper').hide();
+  $('#edit-field-effect-value-wrapper').hide();
+  $('#edit-field-cause-homologene-value-wrapper').hide();
+  $('#edit-field-effect-homologene-value-wrapper').hide();
   //$('.view-connections .view-content').css('float','right');
   $('#views-exposed-form-connections-page').submit(function(){
-    $('#edit-field-effect-tid').val($('#edit-field-cause-tid').val());
+    $('#edit-field-effect-value').val($('#edit-field-cause-value').val());
+    $('#edit-field-cause-homologene-value').val($('#edit-field-cause-value').val());
+    $('#edit-field-effect-homologene-value').val($('#edit-field-cause-value').val());
   });
 
 

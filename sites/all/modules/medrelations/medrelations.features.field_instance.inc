@@ -56,9 +56,9 @@ function medrelations_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'hidden',
-        'module' => 'taxonomy',
+        'module' => 'text',
         'settings' => array(),
-        'type' => 'taxonomy_term_reference_plain',
+        'type' => 'text_plain',
         'weight' => 2,
       ),
       'teaser' => array(
@@ -73,16 +73,16 @@ function medrelations_field_default_field_instances() {
     'label' => 'Cause Name',
     'required' => 0,
     'settings' => array(
+      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 0,
-      'module' => 'taxonomy',
+      'active' => 1,
+      'module' => 'text',
       'settings' => array(
-        'autocomplete_path' => 'taxonomy/autocomplete',
         'size' => 60,
       ),
-      'type' => 'taxonomy_autocomplete',
+      'type' => 'text_textfield',
       'weight' => 2,
     ),
   );
@@ -183,9 +183,9 @@ function medrelations_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'hidden',
-        'module' => 'taxonomy',
+        'module' => 'text',
         'settings' => array(),
-        'type' => 'taxonomy_term_reference_plain',
+        'type' => 'text_plain',
         'weight' => 0,
       ),
       'teaser' => array(
@@ -197,19 +197,19 @@ function medrelations_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_cause_homologene',
-    'label' => 'Cause HomoloGene',
+    'label' => 'Cause Homologene',
     'required' => 0,
     'settings' => array(
+      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 0,
-      'module' => 'taxonomy',
+      'active' => 1,
+      'module' => 'text',
       'settings' => array(
-        'autocomplete_path' => 'taxonomy/autocomplete',
         'size' => 60,
       ),
-      'type' => 'taxonomy_autocomplete',
+      'type' => 'text_textfield',
       'weight' => 4,
     ),
   );
@@ -263,9 +263,9 @@ function medrelations_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'hidden',
-        'module' => 'taxonomy',
+        'module' => 'text',
         'settings' => array(),
-        'type' => 'taxonomy_term_reference_plain',
+        'type' => 'text_plain',
         'weight' => 7,
       ),
       'teaser' => array(
@@ -280,16 +280,16 @@ function medrelations_field_default_field_instances() {
     'label' => 'Effect Name',
     'required' => 0,
     'settings' => array(
+      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 0,
-      'module' => 'taxonomy',
+      'active' => 1,
+      'module' => 'text',
       'settings' => array(
-        'autocomplete_path' => 'taxonomy/autocomplete',
         'size' => 60,
       ),
-      'type' => 'taxonomy_autocomplete',
+      'type' => 'text_textfield',
       'weight' => 7,
     ),
   );
@@ -390,9 +390,9 @@ function medrelations_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'hidden',
-        'module' => 'taxonomy',
+        'module' => 'text',
         'settings' => array(),
-        'type' => 'taxonomy_term_reference_plain',
+        'type' => 'text_plain',
         'weight' => 5,
       ),
       'teaser' => array(
@@ -404,19 +404,19 @@ function medrelations_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_effect_homologene',
-    'label' => 'Effect HomoloGene',
+    'label' => 'Effect Homologene',
     'required' => 0,
     'settings' => array(
+      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 0,
-      'module' => 'taxonomy',
+      'active' => 1,
+      'module' => 'text',
       'settings' => array(
-        'autocomplete_path' => 'taxonomy/autocomplete',
         'size' => 60,
       ),
-      'type' => 'taxonomy_autocomplete',
+      'type' => 'text_textfield',
       'weight' => 9,
     ),
   );
@@ -703,13 +703,13 @@ function medrelations_field_default_field_instances() {
   t('Action');
   t('Category');
   t('Cause CID');
-  t('Cause HomoloGene');
+  t('Cause Homologene');
   t('Cause Name');
   t('Cause category');
   t('Description');
   t('Effect CID');
   t('Effect Category');
-  t('Effect HomoloGene');
+  t('Effect Homologene');
   t('Effect Name');
   t('Environment');
   t('Figure/Table Letter');
