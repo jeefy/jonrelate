@@ -72,6 +72,8 @@ Use the search box below to search by name for a particular biological entity, a
   $handler->display->display_options['fields']['field_cause_homologene']['field'] = 'field_cause_homologene';
   $handler->display->display_options['fields']['field_cause_homologene']['label'] = '';
   $handler->display->display_options['fields']['field_cause_homologene']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_cause_homologene']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_cause_homologene']['alter']['text'] = '<span class="field-cause-homologene"><a href="/connections?field_cause_homologene_value_1=[field_cause_homologene]&field_effect_homologene_value_1=[field_cause_homologene]" class="field-cause-homologene-class">[field_cause_homologene]</a></span> ';
   $handler->display->display_options['fields']['field_cause_homologene']['element_label_colon'] = FALSE;
   /* Field: Content: Cause Name */
   $handler->display->display_options['fields']['field_cause']['id'] = 'field_cause';
@@ -79,6 +81,8 @@ Use the search box below to search by name for a particular biological entity, a
   $handler->display->display_options['fields']['field_cause']['field'] = 'field_cause';
   $handler->display->display_options['fields']['field_cause']['label'] = '';
   $handler->display->display_options['fields']['field_cause']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_cause']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_cause']['alter']['text'] = '<a href="/connections?field_cause_value_1=[field_cause]&field_effect_value_1=[field_cause]" class="field-cause-class">[field_cause]</a>';
   $handler->display->display_options['fields']['field_cause']['element_label_colon'] = FALSE;
   /* Field: Content: Cause category */
   $handler->display->display_options['fields']['field_cause_category']['id'] = 'field_cause_category';
@@ -104,6 +108,8 @@ Use the search box below to search by name for a particular biological entity, a
   $handler->display->display_options['fields']['field_effect_homologene']['field'] = 'field_effect_homologene';
   $handler->display->display_options['fields']['field_effect_homologene']['label'] = '';
   $handler->display->display_options['fields']['field_effect_homologene']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_effect_homologene']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_effect_homologene']['alter']['text'] = '<span class="field-effect-homologene"><a href="/connections?field_cause_homologene_value_1=[field_effect_homologene]&field_effect_homologene_value_1=[field_effect_homologene]" class="field-effect-homologene-class">[field_effect_homologene]</a></span> ';
   $handler->display->display_options['fields']['field_effect_homologene']['element_label_colon'] = FALSE;
   /* Field: Content: Effect Name */
   $handler->display->display_options['fields']['field_effect']['id'] = 'field_effect';
@@ -111,6 +117,8 @@ Use the search box below to search by name for a particular biological entity, a
   $handler->display->display_options['fields']['field_effect']['field'] = 'field_effect';
   $handler->display->display_options['fields']['field_effect']['label'] = '';
   $handler->display->display_options['fields']['field_effect']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_effect']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['field_effect']['alter']['text'] = '<a href="/connections?field_cause_value_1=[field_effect]&field_effect_value_1=[field_effect]" class="field-effect-class">[field_effect]</a>';
   $handler->display->display_options['fields']['field_effect']['element_label_colon'] = FALSE;
   /* Field: Content: Effect Category */
   $handler->display->display_options['fields']['field_effect_category']['id'] = 'field_effect_category';
@@ -150,11 +158,9 @@ Use the search box below to search by name for a particular biological entity, a
   $handler->display->display_options['fields']['field_figure_table_number']['label'] = '';
   $handler->display->display_options['fields']['field_figure_table_number']['alter']['alter_text'] = TRUE;
   $handler->display->display_options['fields']['field_figure_table_number']['alter']['text'] = '<div data-action-group="[field_action]">
-[field_cause_category]<span class="field-cause-homologene">[field_cause_homologene]</span>
-<a href="/connections?field_cause_value=[field_cause]&field_effect_value=[field_cause]&field_cause_homologene_value=[field_cause]&field_effect_homologene_value=[field_cause]" class="field-cause-class">[field_cause]</a>
+[field_cause_category][field_cause_homologene][field_cause]
 <span class="field-action">[field_action]</span>
-[field_effect_category]<span class="field-effect-homologene">[field_effect_homologene]</span>
-<a href="/connections?field_cause_value=[field_effect]&field_effect_value=[field_effect]&field_cause_homologene_value=[field_effect]&field_effect_homologene_value=[field_effect]" class="field-effect-class">[field_effect]</a>
+[field_effect_category][field_effect_homologene][field_effect]
 based on Pubmed ID#[field_pubmed_id] Fig.[field_figure_table_number][field_figure_table_letter].
 <a href="/node/[nid]" class="view-full-entry-link">&lt;View&gt;</a> 
 </div>';
@@ -171,7 +177,9 @@ based on Pubmed ID#[field_pubmed_id] Fig.[field_figure_table_number][field_figur
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
   $handler->display->display_options['filter_groups']['groups'] = array(
     1 => 'AND',
-    2 => 'OR',
+    2 => 'AND',
+    3 => 'OR',
+    4 => 'OR',
   );
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
@@ -189,11 +197,82 @@ based on Pubmed ID#[field_pubmed_id] Fig.[field_figure_table_number][field_figur
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
   /* Filter criterion: Content: Cause Name (field_cause) */
+  $handler->display->display_options['filters']['field_cause_value_2']['id'] = 'field_cause_value_2';
+  $handler->display->display_options['filters']['field_cause_value_2']['table'] = 'field_data_field_cause';
+  $handler->display->display_options['filters']['field_cause_value_2']['field'] = 'field_cause_value';
+  $handler->display->display_options['filters']['field_cause_value_2']['group'] = 2;
+  $handler->display->display_options['filters']['field_cause_value_2']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_cause_value_2']['expose']['operator_id'] = 'field_cause_value_2_op';
+  $handler->display->display_options['filters']['field_cause_value_2']['expose']['operator'] = 'field_cause_value_2_op';
+  $handler->display->display_options['filters']['field_cause_value_2']['expose']['identifier'] = 'field_cause_value_2';
+  $handler->display->display_options['filters']['field_cause_value_2']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+  );
+  /* Filter criterion: Content: Cause Homologene (field_cause_homologene) */
+  $handler->display->display_options['filters']['field_cause_homologene_value_2']['id'] = 'field_cause_homologene_value_2';
+  $handler->display->display_options['filters']['field_cause_homologene_value_2']['table'] = 'field_data_field_cause_homologene';
+  $handler->display->display_options['filters']['field_cause_homologene_value_2']['field'] = 'field_cause_homologene_value';
+  $handler->display->display_options['filters']['field_cause_homologene_value_2']['group'] = 2;
+  $handler->display->display_options['filters']['field_cause_homologene_value_2']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_cause_homologene_value_2']['expose']['operator_id'] = 'field_cause_homologene_value_2_op';
+  $handler->display->display_options['filters']['field_cause_homologene_value_2']['expose']['operator'] = 'field_cause_homologene_value_2_op';
+  $handler->display->display_options['filters']['field_cause_homologene_value_2']['expose']['identifier'] = 'field_cause_homologene_value_2';
+  $handler->display->display_options['filters']['field_cause_homologene_value_2']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+  );
+  /* Filter criterion: Content: Action (field_action) */
+  $handler->display->display_options['filters']['field_action_tid']['id'] = 'field_action_tid';
+  $handler->display->display_options['filters']['field_action_tid']['table'] = 'field_data_field_action';
+  $handler->display->display_options['filters']['field_action_tid']['field'] = 'field_action_tid';
+  $handler->display->display_options['filters']['field_action_tid']['group'] = 2;
+  $handler->display->display_options['filters']['field_action_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_action_tid']['expose']['operator_id'] = 'field_action_tid_op';
+  $handler->display->display_options['filters']['field_action_tid']['expose']['operator'] = 'field_action_tid_op';
+  $handler->display->display_options['filters']['field_action_tid']['expose']['identifier'] = 'field_action_tid';
+  $handler->display->display_options['filters']['field_action_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+  );
+  $handler->display->display_options['filters']['field_action_tid']['vocabulary'] = 'action';
+  /* Filter criterion: Content: Effect Name (field_effect) */
+  $handler->display->display_options['filters']['field_effect_value_2']['id'] = 'field_effect_value_2';
+  $handler->display->display_options['filters']['field_effect_value_2']['table'] = 'field_data_field_effect';
+  $handler->display->display_options['filters']['field_effect_value_2']['field'] = 'field_effect_value';
+  $handler->display->display_options['filters']['field_effect_value_2']['group'] = 2;
+  $handler->display->display_options['filters']['field_effect_value_2']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_effect_value_2']['expose']['operator_id'] = 'field_effect_value_2_op';
+  $handler->display->display_options['filters']['field_effect_value_2']['expose']['operator'] = 'field_effect_value_2_op';
+  $handler->display->display_options['filters']['field_effect_value_2']['expose']['identifier'] = 'field_effect_value_2';
+  $handler->display->display_options['filters']['field_effect_value_2']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+  );
+  /* Filter criterion: Content: Effect Homologene (field_effect_homologene) */
+  $handler->display->display_options['filters']['field_effect_homologene_value_2']['id'] = 'field_effect_homologene_value_2';
+  $handler->display->display_options['filters']['field_effect_homologene_value_2']['table'] = 'field_data_field_effect_homologene';
+  $handler->display->display_options['filters']['field_effect_homologene_value_2']['field'] = 'field_effect_homologene_value';
+  $handler->display->display_options['filters']['field_effect_homologene_value_2']['group'] = 2;
+  $handler->display->display_options['filters']['field_effect_homologene_value_2']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_effect_homologene_value_2']['expose']['operator_id'] = 'field_effect_homologene_value_2_op';
+  $handler->display->display_options['filters']['field_effect_homologene_value_2']['expose']['operator'] = 'field_effect_homologene_value_2_op';
+  $handler->display->display_options['filters']['field_effect_homologene_value_2']['expose']['identifier'] = 'field_effect_homologene_value_2';
+  $handler->display->display_options['filters']['field_effect_homologene_value_2']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+  );
+  /* Filter criterion: Content: Cause Name (field_cause) */
   $handler->display->display_options['filters']['field_cause_value']['id'] = 'field_cause_value';
   $handler->display->display_options['filters']['field_cause_value']['table'] = 'field_data_field_cause';
   $handler->display->display_options['filters']['field_cause_value']['field'] = 'field_cause_value';
   $handler->display->display_options['filters']['field_cause_value']['operator'] = 'contains';
-  $handler->display->display_options['filters']['field_cause_value']['group'] = 2;
+  $handler->display->display_options['filters']['field_cause_value']['group'] = 3;
   $handler->display->display_options['filters']['field_cause_value']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_cause_value']['expose']['operator_id'] = 'field_cause_value_op';
   $handler->display->display_options['filters']['field_cause_value']['expose']['operator'] = 'field_cause_value_op';
@@ -203,27 +282,12 @@ based on Pubmed ID#[field_pubmed_id] Fig.[field_figure_table_number][field_figur
     1 => 0,
     3 => 0,
   );
-  /* Filter criterion: Content: Effect Name (field_effect) */
-  $handler->display->display_options['filters']['field_effect_value']['id'] = 'field_effect_value';
-  $handler->display->display_options['filters']['field_effect_value']['table'] = 'field_data_field_effect';
-  $handler->display->display_options['filters']['field_effect_value']['field'] = 'field_effect_value';
-  $handler->display->display_options['filters']['field_effect_value']['operator'] = 'contains';
-  $handler->display->display_options['filters']['field_effect_value']['group'] = 2;
-  $handler->display->display_options['filters']['field_effect_value']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_effect_value']['expose']['operator_id'] = 'field_effect_value_op';
-  $handler->display->display_options['filters']['field_effect_value']['expose']['operator'] = 'field_effect_value_op';
-  $handler->display->display_options['filters']['field_effect_value']['expose']['identifier'] = 'field_effect_value';
-  $handler->display->display_options['filters']['field_effect_value']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    3 => 0,
-  );
   /* Filter criterion: Content: Cause Homologene (field_cause_homologene) */
   $handler->display->display_options['filters']['field_cause_homologene_value']['id'] = 'field_cause_homologene_value';
   $handler->display->display_options['filters']['field_cause_homologene_value']['table'] = 'field_data_field_cause_homologene';
   $handler->display->display_options['filters']['field_cause_homologene_value']['field'] = 'field_cause_homologene_value';
   $handler->display->display_options['filters']['field_cause_homologene_value']['operator'] = 'contains';
-  $handler->display->display_options['filters']['field_cause_homologene_value']['group'] = 2;
+  $handler->display->display_options['filters']['field_cause_homologene_value']['group'] = 3;
   $handler->display->display_options['filters']['field_cause_homologene_value']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_cause_homologene_value']['expose']['operator_id'] = 'field_cause_homologene_value_op';
   $handler->display->display_options['filters']['field_cause_homologene_value']['expose']['operator'] = 'field_cause_homologene_value_op';
@@ -233,17 +297,88 @@ based on Pubmed ID#[field_pubmed_id] Fig.[field_figure_table_number][field_figur
     1 => 0,
     3 => 0,
   );
+  /* Filter criterion: Content: Effect Name (field_effect) */
+  $handler->display->display_options['filters']['field_effect_value']['id'] = 'field_effect_value';
+  $handler->display->display_options['filters']['field_effect_value']['table'] = 'field_data_field_effect';
+  $handler->display->display_options['filters']['field_effect_value']['field'] = 'field_effect_value';
+  $handler->display->display_options['filters']['field_effect_value']['operator'] = 'contains';
+  $handler->display->display_options['filters']['field_effect_value']['group'] = 3;
+  $handler->display->display_options['filters']['field_effect_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_effect_value']['expose']['operator_id'] = 'field_effect_value_op';
+  $handler->display->display_options['filters']['field_effect_value']['expose']['operator'] = 'field_effect_value_op';
+  $handler->display->display_options['filters']['field_effect_value']['expose']['identifier'] = 'field_effect_value';
+  $handler->display->display_options['filters']['field_effect_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+  );
   /* Filter criterion: Content: Effect Homologene (field_effect_homologene) */
   $handler->display->display_options['filters']['field_effect_homologene_value']['id'] = 'field_effect_homologene_value';
   $handler->display->display_options['filters']['field_effect_homologene_value']['table'] = 'field_data_field_effect_homologene';
   $handler->display->display_options['filters']['field_effect_homologene_value']['field'] = 'field_effect_homologene_value';
   $handler->display->display_options['filters']['field_effect_homologene_value']['operator'] = 'contains';
-  $handler->display->display_options['filters']['field_effect_homologene_value']['group'] = 2;
+  $handler->display->display_options['filters']['field_effect_homologene_value']['group'] = 3;
   $handler->display->display_options['filters']['field_effect_homologene_value']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_effect_homologene_value']['expose']['operator_id'] = 'field_effect_homologene_value_op';
   $handler->display->display_options['filters']['field_effect_homologene_value']['expose']['operator'] = 'field_effect_homologene_value_op';
   $handler->display->display_options['filters']['field_effect_homologene_value']['expose']['identifier'] = 'field_effect_homologene_value';
   $handler->display->display_options['filters']['field_effect_homologene_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+  );
+  /* Filter criterion: Content: Cause Name (field_cause) */
+  $handler->display->display_options['filters']['field_cause_value_1']['id'] = 'field_cause_value_1';
+  $handler->display->display_options['filters']['field_cause_value_1']['table'] = 'field_data_field_cause';
+  $handler->display->display_options['filters']['field_cause_value_1']['field'] = 'field_cause_value';
+  $handler->display->display_options['filters']['field_cause_value_1']['group'] = 4;
+  $handler->display->display_options['filters']['field_cause_value_1']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_cause_value_1']['expose']['operator_id'] = 'field_cause_value_1_op';
+  $handler->display->display_options['filters']['field_cause_value_1']['expose']['operator'] = 'field_cause_value_1_op';
+  $handler->display->display_options['filters']['field_cause_value_1']['expose']['identifier'] = 'field_cause_value_1';
+  $handler->display->display_options['filters']['field_cause_value_1']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+  );
+  /* Filter criterion: Content: Cause Homologene (field_cause_homologene) */
+  $handler->display->display_options['filters']['field_cause_homologene_value_1']['id'] = 'field_cause_homologene_value_1';
+  $handler->display->display_options['filters']['field_cause_homologene_value_1']['table'] = 'field_data_field_cause_homologene';
+  $handler->display->display_options['filters']['field_cause_homologene_value_1']['field'] = 'field_cause_homologene_value';
+  $handler->display->display_options['filters']['field_cause_homologene_value_1']['group'] = 4;
+  $handler->display->display_options['filters']['field_cause_homologene_value_1']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_cause_homologene_value_1']['expose']['operator_id'] = 'field_cause_homologene_value_1_op';
+  $handler->display->display_options['filters']['field_cause_homologene_value_1']['expose']['operator'] = 'field_cause_homologene_value_1_op';
+  $handler->display->display_options['filters']['field_cause_homologene_value_1']['expose']['identifier'] = 'field_cause_homologene_value_1';
+  $handler->display->display_options['filters']['field_cause_homologene_value_1']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+  );
+  /* Filter criterion: Content: Effect Name (field_effect) */
+  $handler->display->display_options['filters']['field_effect_value_1']['id'] = 'field_effect_value_1';
+  $handler->display->display_options['filters']['field_effect_value_1']['table'] = 'field_data_field_effect';
+  $handler->display->display_options['filters']['field_effect_value_1']['field'] = 'field_effect_value';
+  $handler->display->display_options['filters']['field_effect_value_1']['group'] = 4;
+  $handler->display->display_options['filters']['field_effect_value_1']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_effect_value_1']['expose']['operator_id'] = 'field_effect_value_1_op';
+  $handler->display->display_options['filters']['field_effect_value_1']['expose']['operator'] = 'field_effect_value_1_op';
+  $handler->display->display_options['filters']['field_effect_value_1']['expose']['identifier'] = 'field_effect_value_1';
+  $handler->display->display_options['filters']['field_effect_value_1']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+  );
+  /* Filter criterion: Content: Effect Homologene (field_effect_homologene) */
+  $handler->display->display_options['filters']['field_effect_homologene_value_1']['id'] = 'field_effect_homologene_value_1';
+  $handler->display->display_options['filters']['field_effect_homologene_value_1']['table'] = 'field_data_field_effect_homologene';
+  $handler->display->display_options['filters']['field_effect_homologene_value_1']['field'] = 'field_effect_homologene_value';
+  $handler->display->display_options['filters']['field_effect_homologene_value_1']['group'] = 4;
+  $handler->display->display_options['filters']['field_effect_homologene_value_1']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_effect_homologene_value_1']['expose']['operator_id'] = 'field_effect_homologene_value_1_op';
+  $handler->display->display_options['filters']['field_effect_homologene_value_1']['expose']['operator'] = 'field_effect_homologene_value_1_op';
+  $handler->display->display_options['filters']['field_effect_homologene_value_1']['expose']['identifier'] = 'field_effect_homologene_value_1';
+  $handler->display->display_options['filters']['field_effect_homologene_value_1']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
     3 => 0,

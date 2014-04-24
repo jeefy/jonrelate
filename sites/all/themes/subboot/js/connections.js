@@ -46,23 +46,45 @@ jQuery(document).ready(function($){
       network_json.data.nodes.push({id: term, label: term, link: link, type: type});
     }
   }
+  function insertEdge(edge_term, cause_term, effect_term, edge_link, relationship){
+    var term_exists = false;
+    for(var i=0; i<network_json.data.edges.length; i++){
+      if(edge_term == network_json.data.edges[i].label){
+        term_exists = true;
+        break;
+      }
+    }
+    if(!term_exists){
+      network_json.data.edges.push({id: edge_term, label: edge_term, source: cause_term, target: effect_term, directed: true, relType: relationship.toLowerCase(), link: edge_link});
+    }
+  }
   //add nodes and edges for each connection
   $('.views-row').each(function(index, value){
-    var cause_term = ($(this).find('.field-cause-homologene').text()) ? $(this).find('.field-cause-homologene').text() : $(this).find('.field-cause-class').text();
-    var cause_link = $(this).find('.field-cause-class').attr('href');
-    var effect_term = ($(this).find('.field-effect-homologene').text()) ? $(this).find('.field-effect-homologene').text() : $(this).find('.field-effect-class').text();
-    var effect_link = $(this).find('.field-effect-class').attr('href');
+    var cause_name = $(this).find('.field-cause-class').text() ? $(this).find('.field-cause-class').text() : '';
+    var effect_name = $(this).find('.field-effect-class').text() ? $(this).find('.field-effect-class').text() : '';
+    var cause_homologene = $(this).find('.field-cause-homologene').text() ? $(this).find('.field-cause-homologene').text() : '';
+    var effect_homologene = $(this).find('.field-effect-homologene').text() ? $(this).find('.field-effect-homologene').text() : '';
+    var cause_term = cause_homologene ? cause_homologene : cause_name;
+    var effect_term = effect_homologene ? effect_homologene : effect_name;
+    var cause_link = $(this).find('.field-cause-homologene-class').attr('href') ? $(this).find('.field-cause-homologene-class').attr('href') : $(this).find('.field-cause-class').attr('href');
+    var effect_link = $(this).find('.field-effect-homologene-class').attr('href') ? $(this).find('.field-effect-homologene-class').attr('href') : $(this).find('.field-effect-class').attr('href');
     if(cause_term != "" && effect_term != ""){
       insertNode(cause_term, cause_link, "gene");
       insertNode(effect_term, effect_link, "gene");
 
       //add edge no matter what
       var relationship = $(this).find('.field-action').text();
-      var edge_id = cause_term+'_'+relationship+'_'+effect_term+'_'+index;
-      var edge_label = cause_term+' '+relationship+' '+effect_term;
-      var edge_link = $(this).find('.view-full-entry-link').attr('href');
+
+      var edge_term = cause_term+' '+relationship+' '+effect_term;
+      //var edge_id = cause_term+'_'+relationship+'_'+effect_term+'_'+index;
+      //var edge_label = cause_term+' '+relationship+' '+effect_term;
+      //var edge_link = $(this).find('.view-full-entry-link').attr('href');
+      var cause_name_if = cause_homologene ? '' : cause_name;
+      var effect_name_if = effect_homologene ? '' : effect_name;
+      var edge_link = "/connections?field_cause_value_2="+cause_name_if+"&field_cause_homologene_value_2="+cause_homologene+"&field_effect_value_2="+effect_name_if+"&field_effect_homologene_value_2="+effect_homologene+"&field_action_tid="+relationship;
       //add the relationship to the network_json object
-      network_json.data.edges.push({id: edge_id, target: effect_term, source: cause_term, label: edge_label, directed: true, relType: relationship.toLowerCase(), link: edge_link});
+      //network_json.data.edges.push({id: edge_id, target: effect_term, source: cause_term, label: edge_label, directed: true, relType: relationship.toLowerCase(), link: edge_link});
+      insertEdge(edge_term, cause_term, effect_term, edge_link, relationship);
     }
   });
   var arrowShapeMapper = {
@@ -208,6 +230,15 @@ jQuery(document).ready(function($){
   $('#edit-field-effect-value-wrapper').hide();
   $('#edit-field-cause-homologene-value-wrapper').hide();
   $('#edit-field-effect-homologene-value-wrapper').hide();
+  $('#edit-field-cause-value-1-wrapper').hide();
+  $('#edit-field-effect-value-1-wrapper').hide();
+  $('#edit-field-cause-homologene-value-1-wrapper').hide();
+  $('#edit-field-effect-homologene-value-1-wrapper').hide();
+  $('#edit-field-cause-value-2-wrapper').hide();
+  $('#edit-field-effect-value-2-wrapper').hide();
+  $('#edit-field-cause-homologene-value-2-wrapper').hide();
+  $('#edit-field-effect-homologene-value-2-wrapper').hide();
+  $('#edit-field-action-tid-wrapper').hide();
   //$('.view-connections .view-content').css('float','right');
   $('#views-exposed-form-connections-page').submit(function(){
     $('#edit-field-effect-value').val($('#edit-field-cause-value').val());
