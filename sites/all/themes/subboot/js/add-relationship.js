@@ -1,4 +1,24 @@
 jQuery(document).ready(function($) {
+  //add help figures
+  var help_img_path = '/sites/all/themes/subboot/img/pubmow_example/';
+  var help_icon = '<span class="help-img-section"><span class="help-img-icon"> (?) </span><img class="help-img" src="'+help_img_path;
+  $('.page-header').append(help_icon + 'overall.png"> </span>');
+  $('#edit-field-cause label').append(help_icon + 'cause_name.png"> </span>');
+  $('#edit-field-effect label').append(help_icon + 'effect_name.png"> </span>');
+  $('#edit-field-action label').append(help_icon + 'action.png"> </span>');
+  $('#edit-field-figure-table-number label').append(help_icon + 'figure_number.png"> </span>');
+  $('#edit-field-figure-table-letter label').append(help_icon + 'figure_letter.png"> </span>');
+  $('body').on('hover', '.help-img-section', function(e){
+    if (e.type == "mouseenter") {
+        $(this).find('.help-img').show(); 
+    }
+    else { // mouseleave
+        $(this).find('.help-img').hide();   
+    }
+    
+  });
+
+
   //when the category is selected, show/hide the appropriate boxes
   $('#edit-field-cause-category-und, #edit-field-effect-category-und').on('change',function(){
     if($(this).attr('id') == 'edit-field-cause-category-und'){

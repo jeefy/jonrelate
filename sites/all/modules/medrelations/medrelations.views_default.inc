@@ -47,7 +47,7 @@ function medrelations_views_default_views() {
   $handler->display->display_options['header']['area']['empty'] = TRUE;
   $handler->display->display_options['header']['area']['content'] = '<div id="connections-header-title">What am I looking at?</div>
 <div id="connections-header-body">
-This is an interactive map of the relationships between biological entities that have been demonstrated by experiments and shown in published figures. Clicking on a biological entity will show all relationships with that entity. Clicking on a line will show the published figure that is referenced. A list of all the relationships is shown below the interactive map.<br>
+This is an interactive map of the relationships between biological entities that have been demonstrated by experiments and shown in published figures. Clicking on a biological entity will show all relationships with that entity. Clicking on a line will show a list of all references to that relationship.<br>
 Use the search box below to search by name for a particular biological entity, and please add to this body of knowledge by clicking <em>Add Relationship</em> above (only for logged in users), and either publishing your figure directly to this site, or referencing the relationships demonstrated by an already published figure. Thank you!
 </div>';
   $handler->display->display_options['header']['area']['format'] = 'full_html';

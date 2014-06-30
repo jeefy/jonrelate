@@ -92,7 +92,7 @@ function medrelations_field_default_field_instances() {
     'bundle' => 'causal_relationship',
     'default_value' => array(
       0 => array(
-        'tid' => 19,
+        'tid' => 13,
       ),
     ),
     'deleted' => 0,
@@ -299,7 +299,7 @@ function medrelations_field_default_field_instances() {
     'bundle' => 'causal_relationship',
     'default_value' => array(
       0 => array(
-        'tid' => 19,
+        'tid' => 13,
       ),
     ),
     'deleted' => 0,
@@ -522,7 +522,7 @@ function medrelations_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_figure_table_number',
     'label' => 'Figure/Table Number',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'max' => '',
       'min' => 1,
@@ -613,7 +613,7 @@ function medrelations_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_pubmed_id',
     'label' => 'Pubmed ID',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'max' => '',
       'min' => 0,
