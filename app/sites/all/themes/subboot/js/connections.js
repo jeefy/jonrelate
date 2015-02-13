@@ -43,7 +43,7 @@ jQuery(document).ready(function($){
       }
     }
     if(!term_exists){
-      network_json.data.nodes.push({id: term, label: term, link: link, type: type});
+      network_json.data.nodes.push({data:{id: term, label: term, link: link, type: type}});
     }
   }
   function insertEdge(edge_term, cause_term, effect_term, edge_link, relationship){
@@ -55,7 +55,7 @@ jQuery(document).ready(function($){
       }
     }
     if(!term_exists){
-      network_json.data.edges.push({id: edge_term, label: edge_term, source: cause_term, target: effect_term, directed: true, relType: relationship.toLowerCase(), link: edge_link});
+      network_json.data.edges.push({data: {id: edge_term, label: edge_term, source: cause_term, target: effect_term, directed: true, relType: relationship.toLowerCase(), link: edge_link}});
     }
   }
   //add nodes and edges for each connection
@@ -121,16 +121,132 @@ jQuery(document).ready(function($){
       swfPath: "/sites/all/themes/subboot/cytoscape/swf/CytoscapeWeb",
       flashInstallerPath: "/sites/all/themes/subboot/cytoscape/swf/playerProductInstall"
   };
-  
-  var vis = new org.cytoscapeweb.Visualization(div_id, options);
   // callback when Cytoscape Web has finished drawing
-  vis.ready(function() {
+/*{style: cytoscape.stylesheet()
+    .selector('node')
+      .css({
+        'font-size': 10,
+        'content': 'data(gene_name)',
+        'text-valign': 'center',
+        'color': 'white',
+        'text-outline-width': 2,
+        'text-outline-color': '#888',
+        'min-zoomed-font-size': 8,
+        'width': 'mapData(score, 0, 1, 20, 50)',
+        'height': 'mapData(score, 0, 1, 20, 50)'
+      })
+    .selector('node[node_type = "query"]')
+      .css({
+        'background-color': '#666',
+        'text-outline-color': '#666'
+      })
+    .selector('node:selected')
+      .css({
+        'background-color': '#000',
+        'text-outline-color': '#000'
+      })
+    .selector('edge')
+      .css({
+        'curve-style': 'haystack',
+        'opacity': 0.333,
+        'width': 'mapData(normalized_max_weight, 0, 0.01, 1, 2)'
+      })
+    .selector('edge[data_type = "Predicted"]')
+      .css({
+        'line-color': '#F6C28C'
+      })
+    .selector('edge[data_type = "Physical interactions"]')
+      .css({
+        'line-color': '#EAA2A3'
+      })
+    .selector('edge[data_type = "Shared protein domains"]')
+      .css({
+        'line-color': '#DAD4A8'
+      })
+    .selector('edge[data_type = "Co-expression"]')
+      .css({
+        'line-color': '#D0B7D3'
+      })
+    .selector('edge[data_type = "Pathway"]')
+      .css({
+        'line-color': '#9BD8DD'
+      })
+    .selector('edge[data_type = "Co-localization"]')
+      .css({
+        'line-color': '#A0B3D8'
+      })
+  .selector('edge:selected')
+    .css({
+      opacity: 1
+    }),
+    layout: {
+      name: 'concentric',
+      concentric: function(){
+        return this.data('score');
+      },
+      levelWidth: function(nodes){
+        return 0.5;
+      },
+      padding: 10
+    }
+
+  }*/
+
+  console.log(network_json.data);
+$('#' + div_id).cytoscape({
+  style: cytoscape.stylesheet()
+      .selector('node')
+        .css({
+          'font-size': 10,
+          'content': 'data(label)',
+          'text-valign': 'center',
+          'color': 'white',
+          'text-outline-width': 2,
+          'text-outline-color': '#888',
+          'min-zoomed-font-size': 8,
+          'width': 'mapData(score, 0, 1, 20, 50)',
+          'height': 'mapData(score, 0, 1, 20, 50)'
+        })
+      .selector('node:selected')
+        .css({
+          'background-color': '#000',
+          'text-outline-color': '#000'
+        })
+      .selector('edge')
+        .css({
+          'target-arrow-shape': 'triangle',
+          'width': 2,
+          'line-color': '#ddd',
+          'target-arrow-color': '#ddd'
+        })
+    .selector('edge:selected'),
+  elements: network_json.data,
+  
+  layout: {
+    name:"cose",
+    animate: false
+},
+  
+  // on graph initial layout done (could be async depending on layout...)
+  ready: function(){
+    this.on('tap', 'node', function(){
+      window.location.href = this.data('link');
+    });
+    this.on('tap', 'edge', function(){
+      window.location.href = this.data('link');
+    });
+  }
+});
+
+
+
+  /*vis.ready(function() {
   
       // add a listener for when nodes and edges are clicked
-      vis.addListener("click", "nodes", function(event) {
+      vis.on("click", "nodes", function(event) {
           handle_click(event);
       })
-      .addListener("click", "edges", function(event) {
+      .on("click", "edges", function(event) {
           handle_click(event);
       });
       //when clicking on a node or edge, send the user to the link referenced in the entity
@@ -166,9 +282,10 @@ jQuery(document).ready(function($){
       // hide pan zoom
       //panZoomControlVisible: false 
       visualStyle: visual_style,
-  };
+  };*/
   
-  vis.draw(draw_options);
+  //vis.draw(draw_options);
+  //vis.load(network_json.data);
   
   //below did not work to resize for some reason...
   /*var scale;
