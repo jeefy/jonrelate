@@ -32,6 +32,21 @@ jQuery(document).ready(function($){
               edges: []
           }
   };
+  function saveState(json){
+    localStorage['cytojs_state'] = JSON.stringify(json);
+    return json;
+  }
+  function loadState(){
+    console.log('time to load');
+    if('cytojs_state' in localStorage){
+      console.log('found old state!');
+      return JSON.parse(localStorage['cytojs_state']);
+    }
+    // nothing else to return! DERP
+    console.log('no old state!');
+    return false;
+  }
+
 
   //add cytoscape nodes for each term, if they don't already exist.
   function insertNode(term, link, type){
@@ -115,84 +130,7 @@ jQuery(document).ready(function($){
     }
   };
 
-
-  // initialization options
-  var options = {
-      swfPath: "/sites/all/themes/subboot/cytoscape/swf/CytoscapeWeb",
-      flashInstallerPath: "/sites/all/themes/subboot/cytoscape/swf/playerProductInstall"
-  };
-  // callback when Cytoscape Web has finished drawing
-/*{style: cytoscape.stylesheet()
-    .selector('node')
-      .css({
-        'font-size': 10,
-        'content': 'data(gene_name)',
-        'text-valign': 'center',
-        'color': 'white',
-        'text-outline-width': 2,
-        'text-outline-color': '#888',
-        'min-zoomed-font-size': 8,
-        'width': 'mapData(score, 0, 1, 20, 50)',
-        'height': 'mapData(score, 0, 1, 20, 50)'
-      })
-    .selector('node[node_type = "query"]')
-      .css({
-        'background-color': '#666',
-        'text-outline-color': '#666'
-      })
-    .selector('node:selected')
-      .css({
-        'background-color': '#000',
-        'text-outline-color': '#000'
-      })
-    .selector('edge')
-      .css({
-        'curve-style': 'haystack',
-        'opacity': 0.333,
-        'width': 'mapData(normalized_max_weight, 0, 0.01, 1, 2)'
-      })
-    .selector('edge[data_type = "Predicted"]')
-      .css({
-        'line-color': '#F6C28C'
-      })
-    .selector('edge[data_type = "Physical interactions"]')
-      .css({
-        'line-color': '#EAA2A3'
-      })
-    .selector('edge[data_type = "Shared protein domains"]')
-      .css({
-        'line-color': '#DAD4A8'
-      })
-    .selector('edge[data_type = "Co-expression"]')
-      .css({
-        'line-color': '#D0B7D3'
-      })
-    .selector('edge[data_type = "Pathway"]')
-      .css({
-        'line-color': '#9BD8DD'
-      })
-    .selector('edge[data_type = "Co-localization"]')
-      .css({
-        'line-color': '#A0B3D8'
-      })
-  .selector('edge:selected')
-    .css({
-      opacity: 1
-    }),
-    layout: {
-      name: 'concentric',
-      concentric: function(){
-        return this.data('score');
-      },
-      levelWidth: function(nodes){
-        return 0.5;
-      },
-      padding: 10
-    }
-
-  }*/
-
-  console.log(network_json.data);
+var oldState = loadState();
 $('#' + div_id).cytoscape({
   style: cytoscape.stylesheet()
       .selector('node')
@@ -204,8 +142,8 @@ $('#' + div_id).cytoscape({
           'text-outline-width': 2,
           'text-outline-color': '#888',
           'min-zoomed-font-size': 8,
-          'width': 'mapData(score, 0, 1, 20, 50)',
-          'height': 'mapData(score, 0, 1, 20, 50)'
+//          'width': 'mapData(score, 0, 1, 20, 50)',
+//          'height': 'mapData(score, 0, 1, 20, 50)'
         })
       .selector('node:selected')
         .css({
@@ -219,25 +157,132 @@ $('#' + div_id).cytoscape({
           'line-color': '#ddd',
           'target-arrow-color': '#ddd'
         })
+      .selector('edge[relType = "decreases"]')
+        .css({
+          'target-arrow-shape': 'tee',
+          'line-color': '#FF4444',
+          'target-arrow-color': '#FF4444'
+        })
+      .selector('edge[relType = "increases"]')
+        .css({
+          'line-color': '#3333AD',
+          'target-arrow-color': '#3333AD'
+        })
     .selector('edge:selected'),
-  elements: network_json.data,
-  
   layout: {
-    name:"cose",
-    animate: false
-},
+/* Breadth First */
+/*
+    name: 'breadthfirst',
+
+    fit: true, // whether to fit the viewport to the graph
+    directed: false, // whether the tree is directed downwards (or edges can point in any direction if false)
+    padding: 30, // padding on fit
+    circle: true, // put depths in concentric circles if true, put depths top down if false
+    boundingBox: undefined, // constrain layout bounds; { x1, y1, x2, y2 } or { x1, y1, w, h }
+    avoidOverlap: false, // prevents node overlap, may overflow boundingBox if not enough space
+    roots: undefined, // the roots of the trees
+    maximalAdjustments: 0, // how many times to try to position the nodes in a maximal way (i.e. no backtracking)
+    animate: true, // whether to transition the node positions
+    animationDuration: 500, // duration of animation in ms if enabled
+    ready: undefined, // callback on layoutready
+    stop: undefined
+*/
+
+/* COSE */
   
+    name:"cose",
+    animate: false,
+    //debug: true
+
+
+/* Cola */
+/*
+  name: 'cola',
+
+    animate: true, // whether to show the layout as it's running
+    refresh: 1, // number of ticks per frame; higher is faster but more jerky
+    maxSimulationTime: 4000, // max length in ms to run the layout
+    ungrabifyWhileSimulating: false, // so you can't drag nodes during layout
+    fit: true, // on every layout reposition of nodes, fit the viewport
+    padding: 30, // padding around the simulation
+    boundingBox: undefined, // constrain layout bounds; { x1, y1, x2, y2 } or { x1, y1, w, h }
+
+    // layout event callbacks
+    ready: function(){}, // on layoutready
+    stop: function(){
+      console.log('layout over!');
+      saveState(this.json());
+    }, // on layoutstop
+
+    // positioning options
+    randomize: false, // use random node positions at beginning of layout
+    avoidOverlap: true, // if true, prevents overlap of node bounding boxes
+    handleDisconnected: true, // if true, avoids disconnected components from overlapping
+    nodeSpacing: function( node ){ return 10; }, // extra spacing around nodes
+    flow: undefined, // use DAG/tree flow layout if specified, e.g. { axis: 'y', minSeparation: 30 }
+    alignment: undefined, // relative alignment constraints on nodes, e.g. function( node ){ return { x: 0, y: 1 } }
+
+    // different methods of specifying edge length
+    // each can be a constant numerical value or a function like `function( edge ){ return 2; }`
+    edgeLength: undefined, // sets edge length directly in simulation
+    edgeSymDiffLength: undefined, // symmetric diff edge length in simulation
+    edgeJaccardLength: undefined, // jaccard edge length in simulation
+
+    // iterations of cola algorithm; uses default values on undefined
+    unconstrIter: undefined, // unconstrained initial layout iterations
+    userConstIter: undefined, // initial layout iterations with user-specified constraints
+    allConstIter: undefined, // initial layout iterations with all constraints including non-overlap
+
+    // infinite layout options
+    infinite: true // overrides all other options for a forces-all-the-time mode
+*/
+
+/* springy */
+/*
+    name: 'springy',
+
+    animate: true, // whether to show the layout as it's running
+    maxSimulationTime: 1000, // max length in ms to run the layout
+    ungrabifyWhileSimulating: false, // so you can't drag nodes during layout
+    fit: true, // whether to fit the viewport to the graph
+    padding: 30, // padding on fit
+    boundingBox: undefined, // constrain layout bounds; { x1, y1, x2, y2 } or { x1, y1, w, h }
+    random: false, // whether to use random initial positions
+    infinite: false, // overrides all other options for a forces-all-the-time mode
+    ready: undefined, // callback on layoutready
+    stop: undefined, // callback on layoutstop
+
+    // springy forces
+    stiffness: 400,
+    repulsion: 400,
+    damping: 0.5
+*/
+
+  },
   // on graph initial layout done (could be async depending on layout...)
   ready: function(){
+    var cy = this;
     this.on('tap', 'node', function(){
       window.location.href = this.data('link');
     });
     this.on('tap', 'edge', function(){
       window.location.href = this.data('link');
     });
+    this.on('tapend', 'node', function(){
+      saveState(cy.json());
+    });
+    this.on('tapend', 'edge', function(){
+      saveState(cy.json());
+    });
+    this.on('ready', function(){
+      if(oldState){
+        this.add(oldState['elements']);
+      } else {
+        this.load(network_json['data']);
+      }
+    })
   }
 });
-
 
 
   /*vis.ready(function() {
